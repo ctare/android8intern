@@ -29,28 +29,10 @@ public class ImageFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_image, null);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ImageView iview = (ImageView)view.findViewById(R.id.imageView);
-
-                InputStream istream;
-                try {
-                    URL url = new URL("https://i.ytimg.com/vi/ZGl8vrceu1E/hqdefault.jpg");
-                    //インプットストリームで画像を読み込む
-                    istream = url.openStream();
-                    //読み込んだファイルをビットマップに変換
-                    Bitmap bmp = BitmapFactory.decodeStream(istream);
-                    //ビットマップをImageViewに設定
-                    iview.setImageBitmap(bmp);
-                    //インプットストリームを閉じる
-                    istream.close();
-                } catch (Exception e) {
-                    Toast.makeText(FragmentTestActivity.created, e.toString(), Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        Toast.makeText(FragmentTestActivity.created, "success", Toast.LENGTH_LONG).show();
+        ImageView image = (ImageView) view.findViewById(R.id.imageView);
+        //画像取得スレッド起動
+        ImageGetTask task = new ImageGetTask(image);
+        task.execute("https://www.gstatic.com/android/market_images/web/play_logo_x2.png");
 
         return view;
     }
