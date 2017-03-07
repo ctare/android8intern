@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -45,10 +46,11 @@ public class ImageFragment extends Fragment {
                     //インプットストリームを閉じる
                     istream.close();
                 } catch (Exception e) {
-                    Log.d("E",e.toString());
+                    Toast.makeText(FragmentTestActivity.created, e.toString(), Toast.LENGTH_LONG).show();
                 }
             }
-        }).start();
+        });
+        Toast.makeText(FragmentTestActivity.created, "success", Toast.LENGTH_LONG).show();
 
         return view;
     }
