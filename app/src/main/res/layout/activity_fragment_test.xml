@@ -7,11 +7,11 @@
     tools:context="com.example.nekonoha.youtubeapp.FragmentTestActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
-        android:layout_height="50dp"
+        android:layout_width="372dp"
+        android:layout_height="320dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        tools:layout_editor_absoluteY="7dp">
 
 
         <fragment
@@ -21,9 +21,19 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:layout_weight="0.97"
+            android:layout_weight="0.39"
             app:layout_constraintRight_toRightOf="parent"
             tools:layout_editor_absoluteY="8dp" />
+
+        <fragment
+            android:id="@+id/img_frag"
+            android:name="com.example.nekonoha.youtubeapp.ImageFragment"
+            android:layout_width="361dp"
+            android:layout_height="117dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="113dp"
+            android:layout_weight="0.13" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

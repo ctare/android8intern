@@ -11,5 +11,4 @@ public class FragmentTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fragment_test);
     }
 
-
 }
