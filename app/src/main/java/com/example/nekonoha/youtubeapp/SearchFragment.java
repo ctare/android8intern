@@ -68,9 +68,11 @@ public class SearchFragment extends Fragment{
 
                         String videoId = item.getJSONObject("id").getString("videoId");
                         String title = item.getJSONObject("snippet").getString("title");
+                        String thumbnail = item.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
 
                         Log.d("videoId", videoId);
                         Log.d("title", title);
+                        Log.d("url", thumbnail);
                     }
 
 
