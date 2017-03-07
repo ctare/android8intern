@@ -26,24 +26,29 @@ public class ImageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_image, null);
-        ImageView iview = (ImageView)view.findViewById(R.id.imageView);
+        final View view = inflater.inflate(R.layout.fragment_image, null);
 
-        InputStream istream;
-        try {
-            URL url = new URL("https://i.ytimg.com/vi/ZGl8vrceu1E/hqdefault.jpg");
-            //インプットストリームで画像を読み込む
-            istream = url.openStream();
-            //読み込んだファイルをビットマップに変換
-            Bitmap bmp = BitmapFactory.decodeStream(istream);
-            //ビットマップをImageViewに設定
-            iview.setImageBitmap(bmp);
-            //インプットストリームを閉じる
-            istream.close();
-        } catch (Exception e) {
-            Log.d("E",e.toString());
-        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ImageView iview = (ImageView)view.findViewById(R.id.imageView);
 
+                InputStream istream;
+                try {
+                    URL url = new URL("https://i.ytimg.com/vi/ZGl8vrceu1E/hqdefault.jpg");
+                    //インプットストリームで画像を読み込む
+                    istream = url.openStream();
+                    //読み込んだファイルをビットマップに変換
+                    Bitmap bmp = BitmapFactory.decodeStream(istream);
+                    //ビットマップをImageViewに設定
+                    iview.setImageBitmap(bmp);
+                    //インプットストリームを閉じる
+                    istream.close();
+                } catch (Exception e) {
+                    Log.d("E",e.toString());
+                }
+            }
+        }).start();
 
         return view;
     }
