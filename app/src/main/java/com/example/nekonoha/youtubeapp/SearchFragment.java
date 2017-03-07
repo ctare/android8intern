@@ -51,36 +51,8 @@ public class SearchFragment extends Fragment{
 
 
     public void search(final String term){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    URL url = new URL("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU&q="+term+"&part=id,snippet&maxResults=12");
-                    HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                    String str = InputStreamToString(con.getInputStream());
-                    Log.d("HTTP", str);
-
-                    JSONObject json = new JSONObject(str);
-                    JSONArray items = json.getJSONArray("items");
-
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
-
-                        String videoId = item.getJSONObject("id").getString("videoId");
-                        String title = item.getJSONObject("snippet").getString("title");
-                        String thumbnail = item.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-
-                        Log.d("videoId", videoId);
-                        Log.d("title", title);
-                        Log.d("url", thumbnail);
-                    }
-
-
-                } catch (Exception ex) {
-                    System.out.println(ex);
-                }
-            }
-        }).start();
+        SearchTask task = new SearchTask();
+        task.execute(term);
     }
 
 
