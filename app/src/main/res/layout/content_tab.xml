@@ -8,16 +8,43 @@
     tools:context="com.example.nekonoha.youtubeapp.TabActivity"
     tools:showIn="@layout/activity_tab">
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tabs"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
-    </android.support.design.widget.TabLayout>
+        <TextView
+            android:id="@+id/test_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Setting" />
+
+        <TextView
+            android:id="@+id/test_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Top" />
+
+        <TextView
+            android:id="@+id/test_playlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:text="Playlist" />
+    </LinearLayout>
+
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tabs" />
+
 </RelativeLayout>

@@ -6,6 +6,5 @@ package com.example.nekonoha.youtubeapp;
 
 public class PlayList {
     private PlayList[] playlists;
-    private
 
 }
