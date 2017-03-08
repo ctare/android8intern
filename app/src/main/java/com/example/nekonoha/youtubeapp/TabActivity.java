@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 public class TabActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
+
+    final String[] pageTitle = {"Settings", "Search", "PlayLists"};
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +22,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setSupportActionBar(toolbar);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
-        final String[] pageTitle = {"Settings", "Search", "PlayLists"};
+        viewPager = (ViewPager) findViewById(R.id.pager);
+
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -46,24 +48,35 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         viewPager.addOnPageChangeListener(this);
 
         // ViewPagerをTabLayoutを設定
-        //tabLayout.setupWithViewPager((ViewPager)viewPager);
+        tabLayout.setupWithViewPager(viewPager);
+
+
 
     }
 
+
+
+
+
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
     }
 
     @Override
     public void onPageSelected(int position) {
+
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
+
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
+
+
 
 }
