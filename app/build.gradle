@@ -30,3 +30,13 @@ dependencies {
     compile 'com.android.support:support-v4:25.2.0'
     testCompile 'junit:junit:4.12'
 }
+
+repositories {
+    maven {
+        url 'https://github.com/yanzm/LoopViewPager/raw/master/maven-repo'
+    }
+}
+
+dependencies {
+    compile 'net.yanzm:loopviewpager:25.0.1'
+}

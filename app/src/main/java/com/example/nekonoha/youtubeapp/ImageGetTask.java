@@ -26,7 +26,7 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... params) {
         Bitmap image;
         try {
-            Thread.sleep(10);
+            Thread.sleep(3000);
             URL imageUrl = new URL(params[0]);
             InputStream imageIs;
             imageIs = imageUrl.openStream();
