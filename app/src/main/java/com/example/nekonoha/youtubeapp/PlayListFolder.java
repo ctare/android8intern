@@ -38,7 +38,7 @@ public class PlayListFolder extends PlayList{
             @Override
             public void onClick(View view) {
                 Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
-                self.tap(linearLayout, activity);
+                self.getParent().tap(linearLayout, activity);
             }
         });
         linearLayout.removeAllViews();

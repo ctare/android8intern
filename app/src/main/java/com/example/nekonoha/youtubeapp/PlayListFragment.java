@@ -32,7 +32,6 @@ public class PlayListFragment extends Fragment{
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout linearLayout = (LinearLayout) passedView.findViewById(R.id.playlist_print);
         super.onActivityCreated(savedInstanceState);
         PlayList playList = PlayList.sample;
