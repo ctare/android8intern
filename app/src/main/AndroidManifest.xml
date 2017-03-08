@@ -34,7 +34,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:configChanges="orientation|screenSize"/>
 
     </application>
 
