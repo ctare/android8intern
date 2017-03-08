@@ -1,21 +1,15 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.app.Activity;
-import android.util.Log;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * Created by c0115114 on 2017/03/08.
@@ -51,6 +45,9 @@ public class PlayListFolder extends PlayList{
     public void create(final LinearLayout linearLayout, final Activity activity) {
         TextView textView = new TextView(activity);
         textView.setText("play list");
+        textView.setTextColor(Color.BLUE);
+        textView.setTextSize(30);
+
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
