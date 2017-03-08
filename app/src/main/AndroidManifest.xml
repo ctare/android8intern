@@ -35,6 +35,11 @@
         <activity
             android:name=".PlayListActivity"
             android:exported="true" />
+
+        <activity
+            android:name=".DisplayActivity"
+            android:exported="true"
+            android:configChanges="orientation|screenSize"/>
     </application>
 
 </manifest>
