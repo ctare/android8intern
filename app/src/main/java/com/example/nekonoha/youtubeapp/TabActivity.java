@@ -2,6 +2,10 @@ package com.example.nekonoha.youtubeapp;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,8 +14,11 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 public class TabActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
     LoopViewPager loopViewPager;
@@ -21,6 +28,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     final String[] pageTitle = {"Settings", "Search", "PlayLists"};
     private ViewPager viewPager;
 
+    SensorManager sensorManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +37,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
         LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
         final String[] pageTitle = {"Settings", "Search", "PlayLists"};
@@ -99,5 +109,45 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     }
 
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+        if(!sensors.isEmpty()){
+            Sensor s = sensors.get(0);
+            sensorManager.registerListener(new SensorEventListener() {
+                private float beforeX = 0;
+                private boolean once = true;
+                private int count = 0;
+                private final int INTERVAL = 20;
+                @Override
+                public void onSensorChanged(SensorEvent sensorEvent) {
+                    if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+                        float x = sensorEvent.values[0];
 
+                        if(once && beforeX - x > 10){
+                            loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
+                            once = false;
+                            count = 0;
+                        } else if(once && beforeX - x < -10){
+                            int pos = loopViewPager.getCurrentItem() - 1;
+                            loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
+                            once = false;
+                            count = 0;
+                        } else {
+                            if(count > INTERVAL) {
+                                once = true;
+                            }
+                        }
+                        beforeX = x;
+                    }
+                    if(count <= INTERVAL) count++;
+                }
+
+                @Override
+                public void onAccuracyChanged(Sensor sensor, int i) {
+                }
+            }, s, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
 }
