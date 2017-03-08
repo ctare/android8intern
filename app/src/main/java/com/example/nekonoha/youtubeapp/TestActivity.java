@@ -42,9 +42,6 @@ public class TestActivity extends Activity {
                         String videoId = item.getJSONObject("id").getString("videoId");
                         Log.d("videoId",videoId);
                     }
-
-
-
                 } catch (Exception ex) {
                     System.out.println(ex);
                 }

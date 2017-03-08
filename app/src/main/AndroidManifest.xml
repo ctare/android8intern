@@ -17,6 +17,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,6 +27,14 @@
         <activity
             android:name=".FragmentTestActivity"
             android:exported="true" />
+        <activity
+            android:name=".ScrollingTestActivity"
+            android:exported="true"
+            android:label="@string/title_activity_scrolling_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ScrollDeAsobuActivity"
+            android:exported="true"/>
     </application>
 
 </manifest>
