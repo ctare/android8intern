@@ -41,6 +41,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             defaultColors[i] = tab[i].getTextColors();
         }
 
+
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
