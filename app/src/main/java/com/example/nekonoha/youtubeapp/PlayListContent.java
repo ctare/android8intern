@@ -1,11 +1,8 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.app.Activity;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by c0115114 on 2017/03/08.
@@ -22,6 +19,7 @@ public class PlayListContent extends PlayList{
     public void create(LinearLayout linearLayout, Activity activity) {
         TextView textView = new TextView(activity);
         textView.setText("content item");
+        textView.setTextSize(30);
         linearLayout.addView(textView);
     }
 }
