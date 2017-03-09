@@ -45,7 +45,7 @@ public class SearchFragment extends Fragment{
 
 
     public void search(final String term){
-        SearchTask task = new SearchTask(getActivity());
+        SearchTask task = new SearchTask(this);
         task.execute(term);
 
     }

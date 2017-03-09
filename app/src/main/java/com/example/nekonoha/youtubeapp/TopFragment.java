@@ -33,7 +33,7 @@ public class TopFragment extends Fragment {
         LinearLayout.LayoutParams outer = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams inner = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(thumbnails);
-        for (int j = 0; j < 10; j++) {
+        for (int j = 0; j < 2; j++) {
             LinearLayout thumbnails = new LinearLayout(getActivity());
             thumbnails.setId(100000 + j);
             thumbnails.setLayoutParams(inner);

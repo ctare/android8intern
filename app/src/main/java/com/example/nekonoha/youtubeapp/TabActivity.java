@@ -71,6 +71,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         // ViewPagerにページを設定
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(1);
         loopViewPager = viewPager;
     }
 
