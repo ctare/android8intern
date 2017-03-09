@@ -26,7 +26,6 @@ public class SearchFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_search, null);
         SearchView sview = (SearchView) view.findViewById(R.id.search);
-        Log.d("a","aaaaaa");
         sview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
