@@ -22,6 +22,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     final String[] pageTitle = {"Settings", "Search", "PlayLists"};
     private ViewPager viewPager;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

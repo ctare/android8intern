@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 
 public class ThumbnailFragment extends Fragment{
     View view;
+    Video video;
 
 
     @Override

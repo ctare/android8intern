@@ -1,5 +1,6 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -7,7 +8,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString;
@@ -17,6 +17,12 @@ import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString
  */
 
 public class SearchTask extends AsyncTask<String, Void, JSONObject> {
+    Activity activity;
+
+    public SearchTask(Activity activity){
+        this.activity = activity;
+    }
+
     @Override
     protected JSONObject doInBackground(String... params) {
         try {
@@ -25,6 +31,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String str = InputStreamToString(con.getInputStream());
             Log.d("HTTP", str);
+
 
             return new JSONObject(str);
         } catch (Exception e) {
@@ -37,6 +44,8 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject json) {
         try {
             JSONArray items = json.getJSONArray("items");
+            Video video = new Video(json);
+
 
             for (int i = 0; i < items.length(); i++) {
 

@@ -9,15 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 
 public class SearchFragment extends Fragment{
@@ -51,8 +46,9 @@ public class SearchFragment extends Fragment{
 
 
     public void search(final String term){
-        SearchTask task = new SearchTask();
+        SearchTask task = new SearchTask(getActivity());
         task.execute(term);
+
     }
 
 
