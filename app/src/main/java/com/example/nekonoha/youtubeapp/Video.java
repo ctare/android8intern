@@ -2,11 +2,13 @@ package com.example.nekonoha.youtubeapp;
 
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by c0115114 on 2017/03/08.
  */
 
-public class Video {
+public class Video implements Serializable{
     JSONObject video;
 
     public Video(JSONObject video) {
