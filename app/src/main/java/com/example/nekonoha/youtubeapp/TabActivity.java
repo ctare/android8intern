@@ -10,6 +10,7 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,13 +40,20 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
         for (int i = 0; i < tab.length; i++) {
             defaultColors[i] = tab[i].getTextColors();
+            tab[i].setText(pageTitle[i]);
         }
 
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return PageFragment.newInstance(position + 1);
+                switch (position) {
+                    case 1:
+                        Log.d("ok", "top fragment");
+                        return new TopFragment();
+                    default:
+                        return PageFragment.newInstance(position + 1);
+                }
             }
 
             @Override
