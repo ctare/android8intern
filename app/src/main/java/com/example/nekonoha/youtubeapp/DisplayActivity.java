@@ -3,52 +3,47 @@ package com.example.nekonoha.youtubeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
+    private final int INITIAL_PAGE = 1;
+    LoopViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
+        viewPager = (LoopViewPager) findViewById(R.id.pager);
 
-        TextView title = (TextView) findViewById(R.id.title);
-        TextView caption = (TextView) findViewById(R.id.caption);
-
-        title.setText("Title");
-        caption.setText("Caption");
-
-// フラグメント起動 （v4の作法で）
-        YoutubeFragment fragment = new YoutubeFragment();
-        FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction()
-                .replace(R.id.main, fragment)
-                .addToBackStack(null)
-                .commit();
-
-        LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
 
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return new Fragment();
 
+                switch (position) {
+                    case 0:
+                        return new Fragment();
+                    case 1:
+                        return new DisplayFragment();
+                    case 2:
+                        return new Fragment();
+                    default:
+                        return new Fragment();
+                }
                 //switchでposition=0のときと2のときを空フラグメント
                 //1のときをYoutubeとかいろいろ表示するフラグメントにすればいい気がする
             }
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return "tura";
+                return "turai";
             }
 
             @Override
@@ -58,8 +53,17 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
 
         };
 
+
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(INITIAL_PAGE);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        viewPager.setCurrentItem(INITIAL_PAGE);
     }
 
     @Override
@@ -92,8 +96,10 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-        Intent intent = new Intent(this, TabActivity.class);
-        startActivity(intent);
+        if(position != INITIAL_PAGE){
+            Intent intent = new Intent(this, TabActivity.class);
+            startActivity(intent);
+        }
     }
 
     @Override

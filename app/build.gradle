@@ -52,3 +52,6 @@ dependencies {
 dependencies {
     compile files('libs/YouTubeAndroidPlayerApi.jar')
 }
+dependencies {
+    compile 'com.android.support:support-v4:25.+'
+}
