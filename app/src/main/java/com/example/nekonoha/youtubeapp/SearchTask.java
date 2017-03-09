@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.example.nekonoha.youtubeapp.TestActivity.InputStreamToString;
+import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString;
 
 /**
  * Created by c0115114 on 2017/03/07.
