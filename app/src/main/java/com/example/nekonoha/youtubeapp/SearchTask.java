@@ -77,7 +77,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             topFragment.setArguments(args);
             fragmentManager
                     .beginTransaction()
-                    .remove(topFragment)
+//                    .remove(topFragment)
                     .add(R.id.thumbnails, topFragment)
                     .commit();
         } catch (Exception ex) {

@@ -11,6 +11,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import java.io.Serializable;
+
 /**
  * Created by c0115114 on 2017/03/09.
  */
@@ -29,10 +31,22 @@ public class ThumbnailFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_thumbnail, null);
+
+        Video video = null;
+        if(getArguments() != null){
+            Serializable arg = getArguments().getSerializable("video");
+            if(arg != null){
+                video = (Video) arg;
+            }
+        }
+
+        if(video == null) {
+            video = new Video(null);
+        }
+
         ProgressBar p = (ProgressBar)view.findViewById(R.id.progressBar);
         ImageView image = (ImageView) view.findViewById(R.id.imageView);
         //画像取得スレッド起動
-        Video video = new Video(null);
         ImageGetTask task = new ImageGetTask(image,p);
         task.execute(video.thumbnail());
 
