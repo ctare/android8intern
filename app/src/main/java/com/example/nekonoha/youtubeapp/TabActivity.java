@@ -10,6 +10,7 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,8 +19,11 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     TextView[] tab = new TextView[3];
     ColorStateList[] defaultColors = new ColorStateList[3];
 
+
+
     final String[] pageTitle = {"Settings", "Search", "PlayLists"};
     private ViewPager viewPager;
+
 
 
 
@@ -31,13 +35,36 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setSupportActionBar(toolbar);
 
 
-        LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
+        final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
         final String[] pageTitle = {"Settings", "Search", "PlayLists"};
 
 
         tab[0] = (TextView) findViewById(R.id.test_setting);
         tab[1] = (TextView) findViewById(R.id.test_top);
         tab[2] = (TextView) findViewById(R.id.test_playlist);
+
+        tab[0].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(0);
+            }
+        });
+
+        tab[1].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(1);
+            }
+        });
+
+        tab[2].setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewPager.setCurrentItem(2);
+            }
+        });
+
+
 
         for (int i = 0; i < tab.length; i++) {
             defaultColors[i] = tab[i].getTextColors();
@@ -92,6 +119,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 tab[i].setTextColor(Color.RED);
             } else {
                 tab[i].setTextColor(defaultColors[i]);
+
             }
         }
         Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();

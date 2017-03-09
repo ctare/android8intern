@@ -23,26 +23,46 @@
             <TextView
                 android:id="@+id/test_setting"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:ems="10"
-                android:text="Setting" />
+                android:padding="10dp"
+                android:text="Setting"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/test_top"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:ems="10"
-                android:text="Top" />
+                android:padding="10dp"
+                android:text="Search"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/test_playlist"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@color/colorPrimary"
                 android:ems="10"
-                android:text="Playlist" />
+                android:padding="10dp"
+                android:text="Playlist"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
         </LinearLayout>
 
         <android.support.v4.view.LoopViewPager
