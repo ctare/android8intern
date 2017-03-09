@@ -13,7 +13,12 @@ public class Video {
         this.video = video;
     }
 
-    public String id(){
+    public String id() {
         return "cbP2N1BQdYc";
     }
+
+    public String thumbnail() {
+        return "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
+    }
+
 }
