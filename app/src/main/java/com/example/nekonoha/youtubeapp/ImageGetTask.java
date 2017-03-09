@@ -21,7 +21,6 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     public ImageGetTask(ImageView img, ProgressBar p){
         image = img;
         progressBar = p;
-        Log.d("動作確認","const");
     }
 
     @Override
