@@ -3,6 +3,7 @@ package com.example.nekonoha.youtubeapp;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -20,13 +21,15 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     public ImageGetTask(ImageView img, ProgressBar p){
         image = img;
         progressBar = p;
+        Log.d("動作確認","const");
     }
 
     @Override
     protected Bitmap doInBackground(String... params) {
         Bitmap image;
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1);
+            Log.d("URL",params[0]);
             URL imageUrl = new URL(params[0]);
             InputStream imageIs;
             imageIs = imageUrl.openStream();
@@ -43,8 +46,10 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
+        Log.d("result",result.toString());
         progressBar.setVisibility(View.INVISIBLE);
         // 取得した画像をImageViewに設定します。
         image.setImageBitmap(result);
+        Log.d("動作確認","onPost");
     }
 }
