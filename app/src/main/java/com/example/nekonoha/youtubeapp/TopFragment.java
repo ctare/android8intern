@@ -4,12 +4,11 @@ package com.example.nekonoha.youtubeapp;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 /**
  * Created by c0115114 on 2017/03/09.
@@ -25,12 +24,18 @@ public class TopFragment extends Fragment {
         LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(R.id.thumbnails);
         for (int j = 0; j < 3; j++) {
             LinearLayout thumbnails = new LinearLayout(getActivity());
+            thumbnails.setId(100000 + j);
+            thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
             for (int i = 0; i < 2; i++) {
-                View thumbnail = new ThumbnailFragment().onCreateView(inflater, container, savedInstanceState);
+                Fragment t_fragment = new ThumbnailFragment();
+                FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+                transaction.add(thumbnails.getId(),t_fragment).commit();
+
+                //View thumbnail = new ThumbnailFragment().onCreateView(inflater, container, savedInstanceState);
 //                thumbnail.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
 //                thumbnail.setWidth(0);
-                thumbnails.addView(thumbnail, inner);
+                //thumbnails.addView(thumbnail, inner);
             }
             thumbnails_wrap.addView(thumbnails, outer);
         }
