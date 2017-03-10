@@ -46,7 +46,12 @@ public class Video implements Serializable{
 
     private static String title(JSONObject video){
         // TODO: 2017/03/10 タイトルを取得する
-        return "title";
+        try {
+            if(video == null) return "none";
+            return video.getJSONObject("snippet").getString("title");
+        } catch (JSONException e) {
+            return "none";
+        }
     }
 
     public String title(){
