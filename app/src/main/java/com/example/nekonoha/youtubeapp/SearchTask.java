@@ -80,6 +80,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
 //                    .remove(topFragment)
                     .add(R.id.thumbnails, topFragment)
                     .commit();
+
         } catch (Exception ex) {
             System.out.println(ex);
         }

@@ -29,7 +29,6 @@ public class SearchFragment extends Fragment{
         sview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Log.d("a",query);
                 search(query);
                 return false;
             }
