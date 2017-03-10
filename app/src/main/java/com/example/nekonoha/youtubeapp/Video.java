@@ -10,12 +10,13 @@ import java.io.Serializable;
  */
 
 public class Video implements Serializable{
-    String id, title, thumbnail;
+    private String id, title, thumbnail,description;
 
     public Video(JSONObject video) {
         this.id = Video.id(video);
         this.title = Video.title(video);
         this.thumbnail = Video.thumbnail(video);
+        this.description = Video.description(video);
     }
 
     private static String id(JSONObject video) {
@@ -45,7 +46,6 @@ public class Video implements Serializable{
     }
 
     private static String title(JSONObject video){
-        // TODO: 2017/03/10 タイトルを取得する
         try {
             if(video == null) return "none";
             return video.getJSONObject("snippet").getString("title");
@@ -56,5 +56,18 @@ public class Video implements Serializable{
 
     public String title(){
         return this.title;
+    }
+
+    private static String description(JSONObject video){
+        try {
+            if(video == null) return "none";
+            return video.getJSONObject("snippet").getString("description");
+        } catch (JSONException e) {
+            return "none";
+        }
+    }
+
+    public String description(){
+        return this.description;
     }
 }

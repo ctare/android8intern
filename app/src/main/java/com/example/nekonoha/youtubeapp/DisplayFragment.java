@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.ButtonBarLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +38,10 @@ public class DisplayFragment extends Fragment {
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);
-        TextView caption = (TextView) view.findViewById(R.id.caption);
+        TextView description = (TextView) view.findViewById(R.id.description);
 
         title.setText(video.title());
-        caption.setText("Caption");
+        description.setText(video.description());
 
         // フラグメント起動 （v4の作法で）
         Bundle bundle = new Bundle();

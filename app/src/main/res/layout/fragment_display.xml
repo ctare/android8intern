@@ -29,15 +29,15 @@
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fontFamily="serif"
             android:text="タイトル"
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/caption"
+            android:id="@+id/description"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="TextView"
             android:textSize="24sp" />
 
