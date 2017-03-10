@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ScrollDeAsobuActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".TabActivity"
             android:exported="true"
@@ -43,11 +43,13 @@
         <activity
             android:name=".PlayListActivity"
             android:exported="true" />
-
         <activity
             android:name=".DisplayActivity"
-            android:exported="true"
-            android:configChanges="orientation|screenSize"/>
+            android:configChanges="orientation|screenSize"
+            android:exported="true" />
+        <activity
+            android:name=".TestDatabaseActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
