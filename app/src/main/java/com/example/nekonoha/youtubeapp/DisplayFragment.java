@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +50,6 @@ public class DisplayFragment extends Fragment {
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction()
                 .replace(R.id.main, fragment)
-                .addToBackStack(null)
                 .commit();
 
         return view;
