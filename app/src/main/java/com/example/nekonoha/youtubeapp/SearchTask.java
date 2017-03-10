@@ -25,6 +25,8 @@ import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString
 public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
     private static Fragment oldResult = null;
+    private static VideoList searchedOldResult = new VideoList(new ArrayList<Video>());
+    private static boolean reload = false;
 
     public SearchTask(Fragment fragment) {
         this.fragment = fragment;
@@ -81,6 +83,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
                     .replace(R.id.thumbnails, topFragment)
                     .commit();
             oldResult = topFragment;
+            searchedOldResult = videoList;
 
         } catch (Exception ex) {
             System.out.println(ex);
@@ -89,5 +92,19 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
 
     public static Fragment oldResult(){
         return oldResult;
+    }
+
+    public static void reload(){
+        oldResult = null;
+        reload = true;
+    }
+
+    public static VideoList searchedOldResult(){
+        return reload ? searchedOldResult : new VideoList(new ArrayList<Video>());
+    }
+
+    public static void resultReset(){
+        oldResult = null;
+        searchedOldResult = new VideoList(new ArrayList<Video>());
     }
 }
