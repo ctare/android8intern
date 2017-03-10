@@ -10,13 +10,15 @@ import java.io.Serializable;
  */
 
 public class Video implements Serializable{
-    JSONObject video;
+    String id, title, thumbnail;
 
     public Video(JSONObject video) {
-        this.video = video;
+        this.id = Video.id(video);
+        this.title = Video.title(video);
+        this.thumbnail = Video.thumbnail(video);
     }
 
-    public String id() {
+    private static String id(JSONObject video) {
         try {
             return video == null ? "cbP2N1BQdYc" : video.getJSONObject("id").getString("videoId");
         } catch (JSONException e) {
@@ -25,7 +27,11 @@ public class Video implements Serializable{
         }
     }
 
-    public String thumbnail() {
+    public String id(){
+        return this.id;
+    }
+
+    private static String thumbnail(JSONObject video){
         try {
             if(video == null) return "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
             return video.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
@@ -34,4 +40,16 @@ public class Video implements Serializable{
         }
     }
 
+    public String thumbnail(){
+        return this.thumbnail;
+    }
+
+    private static String title(JSONObject video){
+        // TODO: 2017/03/10 タイトルを取得する
+        return "title";
+    }
+
+    public String title(){
+        return this.title;
+    }
 }

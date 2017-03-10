@@ -7,21 +7,35 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import java.io.Serializable;
 
 public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
     private final int INITIAL_PAGE = 1;
     LoopViewPager viewPager;
+    Video video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
+        video = null;
+        Intent selfIntent = getIntent();
+        Serializable arg = selfIntent.getSerializableExtra("video");
+        if(arg != null){
+            video = (Video) arg;
+        }
+
+        if(video == null) {
+            video = new Video(null);
+        }
+        Log.d("display activity", "init success");
+
         viewPager = (LoopViewPager) findViewById(R.id.pager);
-
-
 
         FragmentPagerAdapter adapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -31,7 +45,11 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
                     case 0:
                         return new Fragment();
                     case 1:
-                        return new DisplayFragment();
+                        DisplayFragment displayFragment = new DisplayFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("video", video);
+                        displayFragment.setArguments(bundle);
+                        return displayFragment;
                     case 2:
                         return new Fragment();
                     default:

@@ -32,7 +32,7 @@ public class ThumbnailFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_thumbnail, null);
 
-        Video video = null;
+        video = null;
         if(getArguments() != null){
             Serializable arg = getArguments().getSerializable("video");
             if(arg != null){
@@ -52,12 +52,19 @@ public class ThumbnailFragment extends Fragment{
 
         FrameLayout frame = (FrameLayout)view.findViewById(R.id.frame);
         frame.setOnClickListener(new View.OnClickListener() {
+            private Video video;
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), DisplayActivity.class);
+                intent.putExtra("video", this.video);
                 startActivity(intent);
             }
-        });
+
+            View.OnClickListener setVideo(Video v){
+                this.video = v;
+                return this;
+            }
+        }.setVideo(video));
 
         return view;
     }
