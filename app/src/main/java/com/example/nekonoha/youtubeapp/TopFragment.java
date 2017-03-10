@@ -24,6 +24,7 @@ import static com.example.nekonoha.youtubeapp.R.id.thumbnails;
  */
 
 public class TopFragment extends Fragment {
+    private View created = null;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,9 @@ public class TopFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(created != null){
+            return created;
+        }
         View view = inflater.inflate(R.layout.fragment_top, null);
 
         VideoList videoList = null;
@@ -82,6 +86,7 @@ public class TopFragment extends Fragment {
             thumbnails_wrap.addView(thumbnails, outer);
         }
         transaction.commit();
+        created = view;
         return view;
     }
 }

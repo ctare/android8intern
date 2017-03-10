@@ -24,6 +24,7 @@ import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString
 
 public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
+    private static Fragment oldResult = null;
 
     public SearchTask(Fragment fragment) {
         this.fragment = fragment;
@@ -79,9 +80,14 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
                     .beginTransaction()
                     .replace(R.id.thumbnails, topFragment)
                     .commit();
+            oldResult = topFragment;
 
         } catch (Exception ex) {
             System.out.println(ex);
         }
+    }
+
+    public static Fragment oldResult(){
+        return oldResult;
     }
 }
