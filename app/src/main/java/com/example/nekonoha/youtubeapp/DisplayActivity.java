@@ -22,7 +22,6 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
-        SearchTask.reload();
 
         video = null;
         Intent selfIntent = getIntent();

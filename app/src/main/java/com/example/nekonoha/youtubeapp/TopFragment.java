@@ -47,7 +47,7 @@ public class TopFragment extends Fragment {
         }
 
         if(videoList == null) {
-            videoList = SearchTask.searchedOldResult();
+            videoList = new VideoList(new ArrayList<Video>());
         }
 
         LinearLayout.LayoutParams outer = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
