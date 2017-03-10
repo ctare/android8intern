@@ -22,6 +22,28 @@ abstract public class PlayList {
         this.add(new PlayListContent(new Video(null)));
     }};
 
+    public static void createSampleData(){
+        PlayListFolderData playListFolderData = new PlayListFolderData();
+        playListFolderData.name = "sample1";
+        playListFolderData.save();
+
+        PlayListFolderData inner = new PlayListFolderData();
+        inner.name = "inner";
+        inner.save();
+
+        PlayListVideoData video1 = new PlayListVideoData();
+        video1.videoId = "video id 1";
+        video1.folderId = 1L;
+
+        PlayListVideoData video2 = new PlayListVideoData();
+        video2.videoId = "video id 2";
+        video2.folderId = 1L;
+
+        PlayListVideoData video3 = new PlayListVideoData();
+        video3.videoId = "video id 3";
+        video3.folderId = 2L;
+    }
+
     public final void add(PlayList playList){
         addItem(playList);
         playList.setParent(this);

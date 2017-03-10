@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ollie.Ollie;
+
 public class TabActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
     LoopViewPager loopViewPager;
     TextView[] tab = new TextView[3];
@@ -35,6 +37,11 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        Ollie.with(getApplicationContext())
+                .setName("mytube")
+                .setVersion(1)
+                .setLogLevel(Ollie.LogLevel.FULL)
+                .init();
 
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
 
