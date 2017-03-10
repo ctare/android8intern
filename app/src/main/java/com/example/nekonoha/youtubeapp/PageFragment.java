@@ -30,9 +30,9 @@ public class PageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam = getArguments().getString(ARG_PARAM);
-        }
+//        if (getArguments() != null) {
+//            mParam = getArguments().getString(ARG_PARAM);
+//        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +77,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             public Fragment getItem(int position) {
                 switch (position) {
                     case 1:
-                        return new TopFragment();
+                        Fragment topPage = SearchTask.oldResult();
+                        Log.d("topPage", topPage == null ? "null" : topPage.toString());
+                        return topPage == null ? new TopFragment() : topPage;
                     default:
                         return PageFragment.newInstance(position + 1);
                 }
