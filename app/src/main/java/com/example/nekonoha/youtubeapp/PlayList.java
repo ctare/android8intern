@@ -1,9 +1,15 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import ollie.annotation.NotNull;
+import ollie.query.Delete;
+import ollie.query.Select;
+import ollie.util.QueryUtils;
 
 /**
  * Created by c0115114 on 2017/03/08.
@@ -23,25 +29,30 @@ abstract public class PlayList {
     }};
 
     public static void createSampleData(){
+        QueryUtils.execSQL("delete from folder_data where name like 'sample%'");
+        QueryUtils.execSQL("delete from video_data where video_id like 'sample%'");
         PlayListFolderData playListFolderData = new PlayListFolderData();
         playListFolderData.name = "sample1";
-        playListFolderData.save();
+        Long topKey = playListFolderData.save();
 
         PlayListFolderData inner = new PlayListFolderData();
-        inner.name = "inner";
-        inner.save();
+        inner.name = "sample inner";
+        Long innerKey = inner.save();
 
         PlayListVideoData video1 = new PlayListVideoData();
-        video1.videoId = "video id 1";
-        video1.folderId = 1L;
+        video1.videoId = "sample video id 1";
+        video1.folderId = topKey;
+        video1.save();
 
         PlayListVideoData video2 = new PlayListVideoData();
-        video2.videoId = "video id 2";
-        video2.folderId = 1L;
+        video2.videoId = "sample video id 2";
+        video2.folderId = topKey;
+        video2.save();
 
         PlayListVideoData video3 = new PlayListVideoData();
-        video3.videoId = "video id 3";
-        video3.folderId = 2L;
+        video3.videoId = "sample video id 3";
+        video3.folderId = innerKey;
+        video3.save();
     }
 
     public final void add(PlayList playList){

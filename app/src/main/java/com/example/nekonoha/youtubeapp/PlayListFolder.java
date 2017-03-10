@@ -17,7 +17,6 @@ import java.util.Set;
 
 public class PlayListFolder extends PlayList{
     public Set<PlayList> playLists = new LinkedHashSet<>();
-    public ViewGroup.LayoutParams wp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
     private final PlayListFolder self = this;
 
     @Override
