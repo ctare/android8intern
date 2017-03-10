@@ -23,6 +23,7 @@ import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString
 public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
     private static Fragment oldResult = null;
+    final private String API_KEY = "AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU";
 
     public SearchTask(Fragment fragment) {
         this.fragment = fragment;
@@ -32,7 +33,13 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected JSONObject doInBackground(String... params) {
         try {
             URL url = null;
-            url = new URL("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU&q="+params[0]+"&part=id,snippet&maxResults=50");
+            String term = "";
+
+            for(String param : params){
+                term += param + " ";
+            }
+
+            url = new URL("https://www.googleapis.com/youtube/v3/search?key="+ API_KEY +"&q="+ term +"&part=id,snippet&maxResults=50");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String str = InputStreamToString(con.getInputStream());
             Log.d("HTTP", str);

@@ -10,7 +10,9 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,12 +21,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     TextView[] tab = new TextView[3];
     ColorStateList[] defaultColors = new ColorStateList[3];
 
-
+    SearchView search;
 
     final String[] pageTitle = {"Settings", "Search", "PlayList"};
-    private ViewPager viewPager;
-
-
 
 
     @Override
@@ -34,8 +33,24 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
+
+        search = (SearchView) findViewById(R.id.search);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                search.setIconified(false);
+            }
+        });
+
+        viewPager.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                search.clearFocus();
+                return false;
+            }
+        });
 
 
         tab[0] = (TextView) findViewById(R.id.test_setting);
@@ -64,7 +79,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         });
 
 
-
         for (int i = 0; i < tab.length; i++) {
             defaultColors[i] = tab[i].getTextColors();
             tab[i].setText(pageTitle[i]);
@@ -79,7 +93,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                         Fragment topPage = SearchTask.oldResult();
                         return topPage == null ? new TopFragment() : topPage;
                     case 2:
-                        return  new PlayListFragment();
+                        return new PlayListFragment();
                     default:
                         return PageFragment.newInstance(position + 1);
                 }
@@ -105,19 +119,17 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     }
 
 
-
-
-
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+        search.clearFocus();
     }
+
 
     @Override
     public void onPageSelected(int position) {
 
         for (int i = 0; i < 3; i++) {
-            if(i == position) {
+            if (i == position) {
                 tab[i].setTextColor(Color.WHITE);
             } else {
                 tab[i].setTextColor(defaultColors[i]);
@@ -136,7 +148,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
-
 
 
 }
