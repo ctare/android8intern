@@ -118,6 +118,9 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
     public void onPageSelected(int position) {
         if(position != INITIAL_PAGE){
             Intent intent = new Intent(this, TabActivity.class);
+            //intent.setFlags(FLAG_ACTIVITY_REORDER_TO_FRONT);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
         }
     }

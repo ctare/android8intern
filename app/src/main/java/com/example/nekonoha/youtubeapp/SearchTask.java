@@ -1,12 +1,10 @@
 package com.example.nekonoha.youtubeapp;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,7 +32,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected JSONObject doInBackground(String... params) {
         try {
             URL url = null;
-            url = new URL("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU&q="+params[0]+"&part=id,snippet&maxResults=12");
+            url = new URL("https://www.googleapis.com/youtube/v3/search?key=AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU&q="+params[0]+"&part=id,snippet&maxResults=50");
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String str = InputStreamToString(con.getInputStream());
             Log.d("HTTP", str);

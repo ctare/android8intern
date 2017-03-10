@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.Serializable;
 
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 import static com.example.nekonoha.youtubeapp.R.id.imageView;
 
 /**
