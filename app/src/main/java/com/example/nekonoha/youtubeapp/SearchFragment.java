@@ -66,5 +66,4 @@ public class SearchFragment extends Fragment{
         br.close();
         return sb.toString();
     }
-
 }

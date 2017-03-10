@@ -78,7 +78,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 switch (position) {
                     case 1:
                         Fragment topPage = SearchTask.oldResult();
-                        Log.d("topPage", topPage == null ? "null" : topPage.toString());
                         return topPage == null ? new TopFragment() : topPage;
                     default:
                         return PageFragment.newInstance(position + 1);
