@@ -90,4 +90,8 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     public static Fragment oldResult(){
         return oldResult;
     }
+
+    public static void reset(){
+        oldResult = null;
+    }
 }

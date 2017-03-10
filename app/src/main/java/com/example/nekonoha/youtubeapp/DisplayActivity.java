@@ -23,6 +23,8 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display);
 
+        SearchTask.reset();
+
         video = null;
         Intent selfIntent = getIntent();
         Serializable arg = selfIntent.getSerializableExtra("video");
