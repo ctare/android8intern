@@ -38,6 +38,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        deleteDatabase("mytube");
         Ollie.with(getApplicationContext())
                 .setName("mytube")
                 .setVersion(1)
@@ -46,7 +47,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         Log.d("video id", "init");
         PlayList.createSampleData();
         for(PlayListVideoData playListVideoData: Select.from(PlayListVideoData.class).fetch()){
-            Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.folderId, playListVideoData.videoId));
+            Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
         }
 
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
