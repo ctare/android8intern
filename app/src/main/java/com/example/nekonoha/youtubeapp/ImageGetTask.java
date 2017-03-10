@@ -27,7 +27,7 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... params) {
         Bitmap image;
         try {
-            Thread.sleep(1);
+            //Thread.sleep(1);
             Log.d("URL",params[0]);
             URL imageUrl = new URL(params[0]);
             InputStream imageIs;
@@ -37,8 +37,6 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
         } catch (MalformedURLException e) {
             return null;
         } catch (IOException e) {
-            return null;
-        } catch (InterruptedException e) {
             return null;
         }
     }

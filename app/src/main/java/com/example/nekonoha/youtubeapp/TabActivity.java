@@ -21,7 +21,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
 
 
-    final String[] pageTitle = {"Settings", "Search", "PlayLists"};
+    final String[] pageTitle = {"Settings", "Search", "PlayList"};
     private ViewPager viewPager;
 
 
@@ -36,7 +36,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
 
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
-        final String[] pageTitle = {"Settings", "Search", "PlayLists"};
 
 
         tab[0] = (TextView) findViewById(R.id.test_setting);
@@ -116,7 +115,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
         for (int i = 0; i < 3; i++) {
             if(i == position) {
-                tab[i].setTextColor(Color.RED);
+                tab[i].setTextColor(Color.WHITE);
             } else {
                 tab[i].setTextColor(defaultColors[i]);
 

@@ -27,10 +27,10 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:ems="10"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="Setting"
                 android:textAlignment="center"
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -41,10 +41,10 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:ems="10"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="Search"
                 android:textAlignment="center"
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
@@ -55,11 +55,11 @@
                 android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:ems="10"
-                android:padding="10dp"
+                android:padding="5dp"
                 android:text="Playlist"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
+                android:textColor="@android:color/darker_gray"
                 android:textSize="30sp"
                 android:textStyle="bold" />
 

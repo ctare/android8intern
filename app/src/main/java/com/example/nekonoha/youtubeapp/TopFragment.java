@@ -1,17 +1,17 @@
 package com.example.nekonoha.youtubeapp;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -58,6 +58,8 @@ public class TopFragment extends Fragment {
             LinearLayout thumbnails = new LinearLayout(getActivity());
             thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
+            thumbnails.setBackgroundColor(Color.BLACK);
+            thumbnails.setGravity(Gravity.CENTER);
 
             for (int i = 0; i < row; i++) {
                 Fragment t_fragment = new ThumbnailFragment();
