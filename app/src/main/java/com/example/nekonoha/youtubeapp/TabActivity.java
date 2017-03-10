@@ -40,6 +40,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //開いた状態にする　フォーカスもする
                 search.setIconified(false);
             }
         });
@@ -47,6 +48,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         viewPager.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                //閉じないでフォーカスだけ外す
                 search.clearFocus();
                 return false;
             }
