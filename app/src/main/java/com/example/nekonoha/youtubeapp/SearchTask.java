@@ -91,16 +91,20 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     }
 
     public static Fragment oldResult(){
-        return oldResult;
+        Log.d("sea", "old result " + (reload ? "null" : "oldResult"));
+        return reload ? null : oldResult;
     }
 
     public static void reload(){
-        oldResult = null;
+        Log.d("sea", "reload");
         reload = true;
     }
 
     public static VideoList searchedOldResult(){
-        return reload ? searchedOldResult : new VideoList(new ArrayList<Video>());
+        Log.d("sea", "searched " + (reload ? "true" : "false"));
+        VideoList result = reload ? searchedOldResult : new VideoList(new ArrayList<Video>());
+        reload = false;
+        return result;
     }
 
     public static void resultReset(){
