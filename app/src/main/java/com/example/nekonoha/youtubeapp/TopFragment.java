@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,19 +53,23 @@ public class TopFragment extends Fragment {
         int col = (int) Math.floor(videoList.videos.size() / (float) n);
         int row = n - (videoList.videos.size() % n);
         Toast.makeText(getActivity(), String.format("%d, %d, %d", videoList.videos.size(), col, row), Toast.LENGTH_SHORT).show();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         for (int j = 0; j < col; j++) {
             LinearLayout thumbnails = new LinearLayout(getActivity());
-            thumbnails.setId(100000 + j);
             thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
 
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
             for (int i = 0; i < row; i++) {
                 Fragment t_fragment = new ThumbnailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("video", videoList.videos.get(i + j*n));
                 t_fragment.setArguments(args);
-                transaction.add(thumbnails.getId(), t_fragment);
+
+                FrameLayout frameLayout = new FrameLayout(getActivity());
+                thumbnails.addView(frameLayout);
+                frameLayout.setId(10000 + i + j*n);
+                frameLayout.setLayoutParams(inner);
+                transaction.replace(frameLayout.getId(), t_fragment);
 //                TextView tv = new TextView(getActivity());
 //                tv.setText(videoList.videos.get(i + j*n).id());
 //                thumbnails.addView(tv);
@@ -74,10 +79,9 @@ public class TopFragment extends Fragment {
 //                thumbnail.setWidth(0);
                 //thumbnails.addView(thumbnail, inner);
             }
-            transaction.commit();
-
             thumbnails_wrap.addView(thumbnails, outer);
         }
+        transaction.commit();
         return view;
     }
 }
