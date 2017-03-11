@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.Serializable;
+
 import ollie.Model;
 import ollie.annotation.Column;
 import ollie.annotation.PrimaryKey;
@@ -14,7 +16,7 @@ import ollie.annotation.Table;
  */
 
 @Table("video_data")
-public class PlayListVideoData extends PlayList {
+public class PlayListVideoData extends PlayList implements Serializable{
     @Column("video_id")
     public String videoId;
 
@@ -54,7 +56,7 @@ public class PlayListVideoData extends PlayList {
 
         @Override
         public String description() {
-            return null;
+            return "todo description...";
         }
     }
 }

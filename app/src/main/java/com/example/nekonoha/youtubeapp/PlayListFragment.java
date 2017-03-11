@@ -34,6 +34,10 @@ public class PlayListFragment extends Fragment{
         super.onActivityCreated(savedInstanceState);
         LinearLayout linearLayout = (LinearLayout) passedView.findViewById(R.id.playlist_print);
         PlayList playList = Select.from(PlayListFolderData.class).fetchSingle();
+//        TopFragment topFragment = new TopFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putSerializable("video", playList);
+//        topFragment.setArguments("video", playList);
         playList.tap(linearLayout, getActivity());
     }
 }
