@@ -13,6 +13,8 @@ import java.io.Serializable;
 
 
 public class DisplayFragment extends Fragment {
+    YoutubeFragment fragment;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +47,7 @@ public class DisplayFragment extends Fragment {
         // フラグメント起動 （v4の作法で）
         Bundle bundle = new Bundle();
         bundle.putSerializable("video", video);
-        YoutubeFragment fragment = new YoutubeFragment();
+        fragment = new YoutubeFragment();
         fragment.setArguments(bundle);
         FragmentManager manager = getActivity().getSupportFragmentManager();
         manager.beginTransaction()

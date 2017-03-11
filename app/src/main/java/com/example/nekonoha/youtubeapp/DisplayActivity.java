@@ -17,6 +17,7 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
     private final int INITIAL_PAGE = 1;
     LoopViewPager viewPager;
     Video video;
+    DisplayFragment displayFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
                     case 0:
                         return new Fragment();
                     case 1:
-                        DisplayFragment displayFragment = new DisplayFragment();
+                        displayFragment = new DisplayFragment();
                         Bundle bundle = new Bundle();
                         bundle.putSerializable("video", video);
                         displayFragment.setArguments(bundle);
@@ -129,4 +130,5 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
     public void onPageScrollStateChanged(int state) {
 
     }
+
 }
