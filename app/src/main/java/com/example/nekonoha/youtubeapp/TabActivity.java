@@ -91,6 +91,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             @Override
             public Fragment getItem(int position) {
                 switch (position) {
+                    case 0:
+                        return new SettingsFragment();
                     case 1:
                         Fragment topPage = SearchTask.oldResult();
                         return topPage == null ? new TopFragment() : topPage;
