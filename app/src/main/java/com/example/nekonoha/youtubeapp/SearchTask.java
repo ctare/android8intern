@@ -35,11 +35,53 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             URL url = null;
             String term = "";
 
-            for(String param : params){
+            for (String param : params) {
                 term += param + " ";
             }
 
-            url = new URL("https://www.googleapis.com/youtube/v3/search?key="+ API_KEY +"&q="+ term +"&part=id,snippet&maxResults=50");
+            String query;
+
+            //並び替え
+            // TODO: 2017/03/11 ソートなんとかする
+
+//            if (true) {
+//                //日付
+//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+//                query += "&order=date";
+//                query += "&type=video";
+//            } else if (true) {
+//                //評価
+//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+//                query += "&order=rating";
+//                query += "&type=video";
+//
+//            } else if (true) {
+//                //関連度
+//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+//                query += "&order=relevance";
+//                query += "&type=video";
+//
+//            } else if (true) {
+//                //タイトル
+//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+//                query += "&order=title";
+//                query += "&type=video";
+//
+//            } else if (true) {
+//                //再生数
+//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+//                query += "&order=viewCount";
+//                query += "&type=video";
+//            }
+
+            if (true) {
+                //関連度
+                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
+                query += "&order=relevance";
+                query += "&type=video";
+            }
+
+            url = new URL(query);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String str = InputStreamToString(con.getInputStream());
             Log.d("HTTP", str);
@@ -91,11 +133,11 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
         }
     }
 
-    public static Fragment oldResult(){
+    public static Fragment oldResult() {
         return oldResult;
     }
 
-    public static void reset(){
+    public static void reset() {
         oldResult = null;
     }
 }

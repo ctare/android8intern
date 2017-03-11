@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -55,18 +55,27 @@ public class TopFragment extends Fragment {
         LinearLayout.LayoutParams inner = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(targetLayout);
         int n = 2;
-        int col = (int) Math.floor(videoList.videos().size() / (float) n);
-        int row = n - (videoList.videos().size() % n);
-        Toast.makeText(fragment.getActivity(), String.format("%d, %d, %d", videoList.videos().size(), col, row), Toast.LENGTH_SHORT).show();
+
+        int row = (int)Math.ceil(videoList.videos().size() / (float) n);
+        int col = n ;
+
+
         FragmentTransaction transaction = fragment.getChildFragmentManager().beginTransaction();
-        for (int j = 0; j < col; j++) {
+
+        for (int j = 0; j < row; j++) {
             LinearLayout thumbnails = new LinearLayout(fragment.getActivity());
             thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
             thumbnails.setBackgroundColor(Color.BLACK);
             thumbnails.setGravity(Gravity.CENTER);
 
-            for (int i = 0; i < row; i++) {
+            if(j == row - 1 && videoList.videos().size()%n != 0){
+                col = videoList.videos().size()% n;
+                Log.d("row,col", row + "," + col + "," + j);
+            }
+
+
+            for (int i = 0; i < col; i++) {
                 Fragment t_fragment = new ThumbnailFragment();
                 Bundle args = new Bundle();
                 args.putSerializable("video", videoList.videos().get(i + j*n));

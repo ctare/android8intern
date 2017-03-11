@@ -1,7 +1,6 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,12 +11,11 @@ import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import ollie.Ollie;
 import ollie.query.Select;
@@ -155,18 +153,19 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onPageSelected(int position) {
 
         for (int i = 0; i < 3; i++) {
             if (i == position) {
-                tab[i].setTextColor(Color.WHITE);
+                tab[i].setTextColor(getResources().getColor(R.color.colorFont, getTheme()));
             } else {
                 tab[i].setTextColor(defaultColors[i]);
 
             }
         }
-        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
 
     }
 
