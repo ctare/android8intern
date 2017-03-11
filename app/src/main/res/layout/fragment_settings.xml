@@ -13,7 +13,17 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="検索設定" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,15 +42,76 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <SeekBar
                 android:id="@+id/resultSeekBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:progress="0"
+                android:layout_weight="1"
                 android:max="24"
-                android:layout_weight="1" />
+                android:padding="10dp"
+                android:progress="0" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="検索に含める" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Switch
+                android:id="@+id/video_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="true"
+                android:padding="10dp"
+                android:splitTrack="true"
+                android:text="動画"
+                android:textOff="OFF"
+                android:textOn="ON"
+                tools:checked="true" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Switch
+                android:id="@+id/ch_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:splitTrack="true"
+                android:text="チャンネル"
+                android:textOff="OFF"
+                android:textOn="ON" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Switch
+                android:id="@+id/user_swich"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:text="ユーザー"
+                android:textOff="OFF"
+                android:textOn="ON" />
         </TableRow>
 
     </TableLayout>
