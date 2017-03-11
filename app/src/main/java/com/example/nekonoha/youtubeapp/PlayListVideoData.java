@@ -26,14 +26,6 @@ public class PlayListVideoData extends PlayList implements Serializable{
     @Column("thumbnail")
     public String thumbnail;
 
-    @Override
-    public void create(LinearLayout linearLayout, Activity activity) {
-        TextView textView = new TextView(activity);
-        textView.setText(asVideo().id());
-        textView.setTextSize(30);
-        linearLayout.addView(textView);
-    }
-
     public AsVideo asVideo(){
         return new AsVideo(this.title, this.videoId, this.thumbnail, "description...");
     }

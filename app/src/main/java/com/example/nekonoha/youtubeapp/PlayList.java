@@ -1,6 +1,11 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -37,12 +42,12 @@ public abstract class PlayList extends Model{
         inner.save();
 
         PlayListFolderData inner2 = new PlayListFolderData();
-        inner.name = "sample inner2";
-        inner.save();
+        inner2.name = "sample inner2";
+        inner2.save();
 
         PlayListVideoData video1 = new PlayListVideoData();
         video1.videoId = "cbP2N1BQdYc";
-        video1.title = "sample video id 3";
+        video1.title = "sample video id 1";
         video1.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
         playListFolderData.add(video1);
 
@@ -58,6 +63,12 @@ public abstract class PlayList extends Model{
         video3.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
         inner.add(video3);
 
+        PlayListVideoData video4 = new PlayListVideoData();
+        video4.videoId = "cbP2N1BQdYc";
+        video4.title = "sample video id 4";
+        video4.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
+        inner.add(video4);
+
         playListFolderData.add(inner);
         playListFolderData.add(inner2);
     }
@@ -71,16 +82,29 @@ public abstract class PlayList extends Model{
     public void addItem(PlayList playList){
     }
 
-    public void tap(LinearLayout linearLayout, Activity activity){
-    }
-
-    abstract public void create(LinearLayout linearLayout, Activity activity);
-
     public PlayList getParent() {
         return Select.from(PlayListFolderData.class).where(PlayListFolderData._ID + " == ?", this.parent).fetchSingle();
     }
 
     public void setParent(PlayList parent) {
         this.parent = parent.save();
+    }
+
+    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData){
+        VideoList videos = playListFolderData.asVideoList();
+        Bundle args = new Bundle();
+        args.putSerializable("videos", videos);
+
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        Fragment playListFragment = new PlayListFragment();
+        playListFragment.setArguments(args);
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.play_list_wrap, playListFragment)
+                .commit();
+//        TextView textView = (TextView) playListFragment.getActivity().findViewById(R.id.play_list_title);
+//        Log.d("textview", playListFolderData.name);
+//        Log.d("textview", textView == null ? "null" : "not null");
+//        textView.setText(playListFolderData.name);
     }
 }

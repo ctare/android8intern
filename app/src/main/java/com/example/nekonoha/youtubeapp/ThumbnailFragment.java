@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,11 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.Serializable;
+
+import ollie.query.Select;
 
 import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 import static com.example.nekonoha.youtubeapp.R.id.imageView;
@@ -65,9 +69,13 @@ public class ThumbnailFragment extends Fragment{
             private Video video;
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), DisplayActivity.class);
-                intent.putExtra("video", this.video);
-                startActivity(intent);
+                if(PlayListFolderData.isPlayList(video)){
+                    PlayList.viewPlayList(ThumbnailFragment.this.getActivity(), ((PlayListFolderData.AsVideo) video).asData());
+                }else{
+                    Intent intent = new Intent(getActivity(), DisplayActivity.class);
+                    intent.putExtra("video", this.video);
+                    startActivity(intent);
+                }
             }
 
             View.OnClickListener setVideo(Video v){

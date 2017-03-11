@@ -48,11 +48,10 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
         Log.d("video id", "init");
-        PlayList.createSampleData();
+//        PlayList.createSampleData();
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
             Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
         }
-
 
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
 
@@ -119,12 +118,12 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 //                        return topPage == null ? new TopFragment() : topPage;
                         return new TopFragment();
                     case 2:
-                        PlayListFragment playListFragment = new PlayListFragment();
-                        Bundle bundle = new Bundle();
-                        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
-                        bundle.putSerializable("videos", playList.asVideoList());
-                        playListFragment.setArguments(bundle);
-                        return playListFragment;
+//                        PlayListFragment playListFragment = new PlayListFragment();
+//                        Bundle bundle = new Bundle();
+//                        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
+//                        bundle.putSerializable("videos", playList.asVideoList());
+//                        playListFragment.setArguments(bundle);
+                        return new PlayListWrapFragment();
                     default:
                         return PageFragment.newInstance(position + 1);
                 }

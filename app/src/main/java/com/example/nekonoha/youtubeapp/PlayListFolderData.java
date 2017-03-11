@@ -10,6 +10,7 @@ import android.widget.Toast;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ollie.Model;
 import ollie.annotation.Column;
@@ -28,48 +29,8 @@ public class PlayListFolderData extends PlayList implements Serializable{
 
     @Column("name")
     public String name;
-
-    @Override
-    public void tap(final LinearLayout linearLayout, final Activity activity) {
-        View view = activity.findViewById(R.id.play_list_title);
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
-                PlayList parent = PlayListFolderData.this.getParent();
-                if(parent != null){
-                    parent.tap(linearLayout, activity);
-                }
-            }
-        });
-
-        linearLayout.removeAllViews();
-        for (PlayList playList: Select.from(PlayListFolderData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
-            playList.create(linearLayout, activity);
-        }
-        for (PlayList playList: Select.from(PlayListVideoData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
-            playList.create(linearLayout, activity);
-        }
-    }
-
-    @Override
-    public void create(final LinearLayout linearLayout, final Activity activity) {
-        TextView textView = new TextView(activity);
-        textView.setText("play list");
-        textView.setTextColor(Color.BLUE);
-        textView.setTextSize(30);
-
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                PlayListFolderData.this.tap(linearLayout, activity);
-            }
-        });
-        linearLayout.addView(textView);
-    }
-
     public PlayListVideoData.AsVideo asVideo(){
-        return new PlayListVideoData.AsVideo(this.name, "", IDENTIFICATION, "playlist description");
+        return new PlayListFolderData.AsVideo(this.name, "", IDENTIFICATION, "playlist description");
     }
 
     public AsVideoList asVideoList(){
@@ -87,6 +48,20 @@ public class PlayListFolderData extends PlayList implements Serializable{
                 videos.add(videoData.asVideo());
             }
             return videos;
+        }
+    }
+
+    public static boolean isPlayList(Video video){
+        return video.thumbnail().equals(IDENTIFICATION);
+    }
+
+    public class AsVideo extends PlayListVideoData.AsVideo{
+        public AsVideo(String title, String id, String thumbnail, String description) {
+            super(title, id, thumbnail, description);
+        }
+
+        public PlayListFolderData asData(){
+            return PlayListFolderData.this;
         }
     }
 }
