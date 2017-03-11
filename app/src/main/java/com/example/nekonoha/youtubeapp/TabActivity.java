@@ -11,10 +11,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
+import android.util.Log;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import ollie.Ollie;
+import ollie.query.Select;
 
 public class TabActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener, PageFragment.OnFragmentInteractionListener {
     LoopViewPager loopViewPager;
@@ -32,6 +36,20 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setContentView(R.layout.activity_tab);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        deleteDatabase("mytube");
+        Ollie.with(getApplicationContext())
+                .setName("mytube")
+                .setVersion(1)
+                .setLogLevel(Ollie.LogLevel.FULL)
+                .init();
+        Log.d("video id", "init");
+        PlayList.createSampleData();
+        for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
+            Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
+        }
+
 
         final LoopViewPager viewPager = (LoopViewPager) findViewById(R.id.pager);
 

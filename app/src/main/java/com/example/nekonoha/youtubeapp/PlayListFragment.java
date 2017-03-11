@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import ollie.query.Select;
+
 /**
  * Created by c0115114 on 2017/03/08.
  */
@@ -17,8 +19,6 @@ public class PlayListFragment extends Fragment{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Nullable
@@ -33,7 +33,7 @@ public class PlayListFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         LinearLayout linearLayout = (LinearLayout) passedView.findViewById(R.id.playlist_print);
-        PlayList playList = PlayList.sample;
-//        playList.tap(linearLayout, getActivity());
+        PlayList playList = Select.from(PlayListFolderData.class).fetchSingle();
+        playList.tap(linearLayout, getActivity());
     }
 }

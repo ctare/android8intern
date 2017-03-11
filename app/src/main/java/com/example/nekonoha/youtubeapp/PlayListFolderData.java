@@ -3,40 +3,44 @@ package com.example.nekonoha.youtubeapp;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import ollie.Model;
+import ollie.annotation.Column;
+import ollie.annotation.ForeignKey;
+import ollie.annotation.PrimaryKey;
+import ollie.annotation.Table;
+import ollie.query.Select;
 
 /**
- * Created by c0115114 on 2017/03/08.
+ * Created by c0115114 on 2017/03/10.
  */
 
-public class PlayListFolder extends PlayList{
-    public Set<PlayList> playLists = new LinkedHashSet<>();
-    public ViewGroup.LayoutParams wp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-    private final PlayListFolder self = this;
-
-    @Override
-    public void addItem(PlayList playList) {
-        playLists.add(playList);
-    }
+@Table("folder_data")
+public class PlayListFolderData extends PlayList{
+    @Column("name")
+    public String name;
 
     @Override
     public void tap(final LinearLayout linearLayout, final Activity activity) {
-        View view = activity.findViewById(R.id.playlist_title);
+        View view = activity.findViewById(R.id.play_list_title);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show();
-                self.getParent().tap(linearLayout, activity);
+                PlayList parent = PlayListFolderData.this.getParent();
+                if(parent != null){
+                    parent.tap(linearLayout, activity);
+                }
             }
         });
         linearLayout.removeAllViews();
-        for (PlayList playList: playLists){
+        for (PlayList playList: Select.from(PlayListFolderData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
+            playList.create(linearLayout, activity);
+        }
+        for (PlayList playList: Select.from(PlayListVideoData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
             playList.create(linearLayout, activity);
         }
     }
@@ -51,7 +55,7 @@ public class PlayListFolder extends PlayList{
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                self.tap(linearLayout, activity);
+                PlayListFolderData.this.tap(linearLayout, activity);
             }
         });
         linearLayout.addView(textView);

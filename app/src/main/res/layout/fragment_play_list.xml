@@ -7,10 +7,25 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:id="@+id/playlist_print"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/play_list_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="TextView" />
+
+        <LinearLayout
+            android:id="@+id/playlist_print"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>
