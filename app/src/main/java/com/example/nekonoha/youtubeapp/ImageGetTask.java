@@ -43,7 +43,7 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
-        Log.d("result",result.toString());
+        //Log.d("result",result.toString());
         progressBar.setVisibility(View.INVISIBLE);
         // 取得した画像をImageViewに設定します。
         image.setImageBitmap(result);
