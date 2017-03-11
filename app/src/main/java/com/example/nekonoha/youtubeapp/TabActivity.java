@@ -3,7 +3,9 @@ package com.example.nekonoha.youtubeapp;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.LoopViewPager;
@@ -30,6 +32,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     final String[] pageTitle = {"Settings", "Search", "PlayList"};
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,7 +119,12 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 //                        return topPage == null ? new TopFragment() : topPage;
                         return new TopFragment();
                     case 2:
-                        return new PlayListFragment();
+                        PlayListFragment playListFragment = new PlayListFragment();
+                        Bundle bundle = new Bundle();
+                        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
+                        bundle.putSerializable("videos", playList.asVideoList());
+                        playListFragment.setArguments(bundle);
+                        return playListFragment;
                     default:
                         return PageFragment.newInstance(position + 1);
                 }

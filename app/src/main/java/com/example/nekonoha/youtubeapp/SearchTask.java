@@ -73,9 +73,9 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
 //                Log.d("url", thumbnail);
             }
 
-            VideoList videoList = new VideoList(videos);
+            NormalVideoList normalVideoList = new NormalVideoList(videos);
             Bundle args = new Bundle();
-            args.putSerializable("videos", videoList);
+            args.putSerializable("videos", normalVideoList);
 
             FragmentManager fragmentManager = fragment.getActivity().getSupportFragmentManager();
             Fragment topFragment = new TopFragment();

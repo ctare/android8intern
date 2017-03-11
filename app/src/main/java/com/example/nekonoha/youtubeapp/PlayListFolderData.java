@@ -7,6 +7,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import ollie.Model;
 import ollie.annotation.Column;
 import ollie.annotation.ForeignKey;
@@ -19,7 +23,9 @@ import ollie.query.Select;
  */
 
 @Table("folder_data")
-public class PlayListFolderData extends PlayList{
+public class PlayListFolderData extends PlayList implements Serializable{
+    public final static String IDENTIFICATION = "this is play list";
+
     @Column("name")
     public String name;
 
@@ -36,6 +42,7 @@ public class PlayListFolderData extends PlayList{
                 }
             }
         });
+
         linearLayout.removeAllViews();
         for (PlayList playList: Select.from(PlayListFolderData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
             playList.create(linearLayout, activity);
@@ -59,5 +66,27 @@ public class PlayListFolderData extends PlayList{
             }
         });
         linearLayout.addView(textView);
+    }
+
+    public PlayListVideoData.AsVideo asVideo(){
+        return new PlayListVideoData.AsVideo(this.name, "", IDENTIFICATION, "playlist description");
+    }
+
+    public AsVideoList asVideoList(){
+        return new AsVideoList();
+    }
+
+    private class AsVideoList implements VideoList, Serializable{
+        @Override
+        public List<Video> videos() {
+            List<Video> videos = new ArrayList<>();
+            for(PlayListFolderData videoData: Select.from(PlayListFolderData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
+                videos.add(videoData.asVideo());
+            }
+            for(PlayListVideoData videoData: Select.from(PlayListVideoData.class).where("parent == ?", PlayListFolderData.this.id).fetch()){
+                videos.add(videoData.asVideo());
+            }
+            return videos;
+        }
     }
 }

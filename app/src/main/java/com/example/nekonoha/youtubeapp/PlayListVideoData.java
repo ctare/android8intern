@@ -35,28 +35,37 @@ public class PlayListVideoData extends PlayList implements Serializable{
     }
 
     public AsVideo asVideo(){
-        return new AsVideo();
+        return new AsVideo(this.title, this.videoId, this.thumbnail, "description...");
     }
 
-    private class AsVideo implements Video{
+    static class AsVideo implements Video, Serializable{
+        String title, id, thumbnail, description;
+
+        public AsVideo(String title, String id, String thumbnail, String description) {
+            this.title = title;
+            this.id = id;
+            this.thumbnail = thumbnail;
+            this.description = description;
+        }
+
         @Override
         public String title() {
-            return PlayListVideoData.this.title;
+            return this.title;
         }
 
         @Override
         public String id() {
-            return PlayListVideoData.this.videoId;
+            return this.id;
         }
 
         @Override
         public String thumbnail() {
-            return PlayListVideoData.this.thumbnail;
+            return this.thumbnail;
         }
 
         @Override
         public String description() {
-            return "todo description...";
+            return this.description;
         }
     }
 }
