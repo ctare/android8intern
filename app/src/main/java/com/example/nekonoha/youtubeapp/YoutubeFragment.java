@@ -43,7 +43,7 @@ public class YoutubeFragment extends Fragment {
         }
 
         if(video == null) {
-            video = new Video(null);
+            video = new NormalVideo(null);
         }
 
         // YouTubeフラグメントのプレーヤーを初期化する

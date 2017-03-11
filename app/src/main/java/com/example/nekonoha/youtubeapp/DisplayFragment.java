@@ -33,7 +33,7 @@ public class DisplayFragment extends Fragment {
         }
 
         if(video == null) {
-            video = new Video(null);
+            video = new NormalVideo(null);
         }
 
         TextView title = (TextView) view.findViewById(R.id.title);

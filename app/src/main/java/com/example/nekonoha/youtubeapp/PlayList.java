@@ -30,31 +30,42 @@ public abstract class PlayList extends Model{
         QueryUtils.execSQL("delete from video_data where video_id like 'sample%'");
         PlayListFolderData playListFolderData = new PlayListFolderData();
         playListFolderData.name = "sample1";
-        Long topKey = playListFolderData.save();
+        playListFolderData.save();
 
         PlayListFolderData inner = new PlayListFolderData();
         inner.name = "sample inner";
-        Long innerKey = inner.save();
+        inner.save();
+
+        PlayListFolderData inner2 = new PlayListFolderData();
+        inner.name = "sample inner2";
+        inner.save();
 
         PlayListVideoData video1 = new PlayListVideoData();
-        video1.videoId = "sample video id 1";
-        video1.parent = topKey;
-        video1.save();
+        video1.videoId = "cbP2N1BQdYc";
+        video1.title = "sample video id 3";
+        video1.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
+        playListFolderData.add(video1);
 
         PlayListVideoData video2 = new PlayListVideoData();
-        video2.videoId = "sample video id 2";
-        video2.parent = topKey;
-        video2.save();
+        video2.videoId = "cbP2N1BQdYc";
+        video2.title = "sample video id 2";
+        video2.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
+        playListFolderData.add(video2);
 
         PlayListVideoData video3 = new PlayListVideoData();
-        video3.videoId = "sample video id 3";
-        video3.parent = innerKey;
-        video3.save();
+        video3.videoId = "cbP2N1BQdYc";
+        video3.title = "sample video id 3";
+        video3.thumbnail = "https://i.ytimg.com/vi/b2IZDKG0k6M/hqdefault.jpg";
+        inner.add(video3);
+
+        playListFolderData.add(inner);
+        playListFolderData.add(inner2);
     }
 
     public final void add(PlayList playList){
         addItem(playList);
         playList.setParent(this);
+        playList.save();
     }
 
     public void addItem(PlayList playList){
@@ -62,6 +73,7 @@ public abstract class PlayList extends Model{
 
     public void tap(LinearLayout linearLayout, Activity activity){
     }
+
     abstract public void create(LinearLayout linearLayout, Activity activity);
 
     public PlayList getParent() {

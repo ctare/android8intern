@@ -92,13 +92,12 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject json) {
         try {
             JSONArray items = json.getJSONArray("items");
-            Video video = new Video(json);
 
             List<Video> videos = new ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
 
                 JSONObject item = items.getJSONObject(i);
-                videos.add(new Video(item));
+                videos.add(new NormalVideo(item));
 //
 //
 //                String videoId = item.getJSONObject("id").getString("videoId");
@@ -110,9 +109,9 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
 //                Log.d("url", thumbnail);
             }
 
-            VideoList videoList = new VideoList(videos);
+            NormalVideoList normalVideoList = new NormalVideoList(videos);
             Bundle args = new Bundle();
-            args.putSerializable("videos", videoList);
+            args.putSerializable("videos", normalVideoList);
 
             FragmentManager fragmentManager = fragment.getActivity().getSupportFragmentManager();
             Fragment topFragment = new TopFragment();

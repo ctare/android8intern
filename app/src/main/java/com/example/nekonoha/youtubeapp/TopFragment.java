@@ -16,8 +16,6 @@ import android.widget.LinearLayout;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static com.example.nekonoha.youtubeapp.R.id.thumbnails;
-
 /**
  * Created by c0115114 on 2017/03/09.
  */
@@ -35,30 +33,34 @@ public class TopFragment extends Fragment {
         if(created != null){
             return created;
         }
-        View view = inflater.inflate(R.layout.fragment_top, null);
+        created = inOnCreateView(R.id.thumbnails, this, inflater.inflate(R.layout.fragment_top, null));
+        return created;
+    }
 
+    public static View inOnCreateView(int targetLayout, Fragment fragment, View view){
         VideoList videoList = null;
-        if(getArguments() != null){
-            Serializable arg = getArguments().getSerializable("videos");
+        if(fragment.getArguments() != null){
+            Serializable arg = fragment.getArguments().getSerializable("videos");
             if(arg != null){
                 videoList = (VideoList) arg;
             }
         }
 
         if(videoList == null) {
-            videoList = new VideoList(new ArrayList<Video>());
+            videoList = new NormalVideoList(new ArrayList<Video>());
         }
 
         LinearLayout.LayoutParams outer = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         LinearLayout.LayoutParams inner = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-        LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(thumbnails);
+        LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(targetLayout);
         int n = 2;
-        int col = (int) Math.floor(videoList.videos.size() / (float) n);
-        int row = n - (videoList.videos.size() % n);
-//        Toast.makeText(getActivity(), String.format("%d, %d, %d", videoList.videos.size(), col, row), Toast.LENGTH_SHORT).show();
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        int col = (int) Math.floor(videoList.videos().size() / (float) n);
+        int row = n - (videoList.videos().size() % n);
+        FragmentTransaction transaction = fragment.getChildFragmentManager().beginTransaction();
+
         for (int j = 0; j < col; j++) {
-            LinearLayout thumbnails = new LinearLayout(getActivity());
+            LinearLayout thumbnails = new LinearLayout(fragment.getActivity());
             thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
             thumbnails.setBackgroundColor(Color.BLACK);
@@ -67,27 +69,18 @@ public class TopFragment extends Fragment {
             for (int i = 0; i < row; i++) {
                 Fragment t_fragment = new ThumbnailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("video", videoList.videos.get(i + j*n));
+                args.putSerializable("video", videoList.videos().get(i + j*n));
                 t_fragment.setArguments(args);
 
-                FrameLayout frameLayout = new FrameLayout(getActivity());
+                FrameLayout frameLayout = new FrameLayout(fragment.getActivity());
                 thumbnails.addView(frameLayout);
                 frameLayout.setId(10000 + i + j*n);
                 frameLayout.setLayoutParams(inner);
                 transaction.replace(frameLayout.getId(), t_fragment);
-//                TextView tv = new TextView(getActivity());
-//                tv.setText(videoList.videos.get(i + j*n).id());
-//                thumbnails.addView(tv);
-
-                //View thumbnail = new ThumbnailFragment().onCreateView(inflater, container, savedInstanceState);
-//                thumbnail.setGravity(Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-//                thumbnail.setWidth(0);
-                //thumbnails.addView(thumbnail, inner);
             }
             thumbnails_wrap.addView(thumbnails, outer);
         }
         transaction.commit();
-        created = view;
         return view;
     }
 }

@@ -48,7 +48,7 @@ public class ThumbnailFragment extends Fragment{
         }
 
         if(video == null) {
-            video = new Video(null);
+            video = new NormalVideo(null);
         }
 
         ProgressBar p = (ProgressBar)view.findViewById(R.id.progressBar);

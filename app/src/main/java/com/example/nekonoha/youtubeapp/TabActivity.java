@@ -30,6 +30,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     final String[] pageTitle = {"Settings", "Search", "PlayList"};
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +39,14 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setSupportActionBar(toolbar);
 
 
-        deleteDatabase("mytube");
+//        deleteDatabase("mytube");
         Ollie.with(getApplicationContext())
                 .setName("mytube")
                 .setVersion(1)
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
         Log.d("video id", "init");
-        PlayList.createSampleData();
+//        PlayList.createSampleData();
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
             Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
         }
@@ -112,10 +113,16 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                     case 0:
                         return new SettingsFragment();
                     case 1:
-                        Fragment topPage = SearchTask.oldResult();
-                        return topPage == null ? new TopFragment() : topPage;
+//                        Fragment topPage = SearchTask.oldResult();
+//                        return topPage == null ? new TopFragment() : topPage;
+                        return new TopFragment();
                     case 2:
-                        return new PlayListFragment();
+                        PlayListFragment playListFragment = new PlayListFragment();
+                        Bundle bundle = new Bundle();
+                        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
+                        bundle.putSerializable("videos", playList.asVideoList());
+                        playListFragment.setArguments(bundle);
+                        return playListFragment;
                     default:
                         return PageFragment.newInstance(position + 1);
                 }

@@ -17,6 +17,7 @@ import java.net.URL;
 public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     private ImageView image;
     private ProgressBar progressBar;
+    boolean isPlayList = false;
 
     public ImageGetTask(ImageView img, ProgressBar p){
         image = img;
@@ -27,7 +28,10 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
     protected Bitmap doInBackground(String... params) {
         Bitmap image;
         try {
-            //Thread.sleep(1);
+            if(params[0] == PlayListFolderData.IDENTIFICATION){
+                isPlayList = true;
+                return null;
+            }
             Log.d("URL",params[0]);
             URL imageUrl = new URL(params[0]);
             InputStream imageIs;
@@ -43,10 +47,14 @@ public class ImageGetTask extends AsyncTask<String, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
-        //Log.d("result",result.toString());
         progressBar.setVisibility(View.INVISIBLE);
         // 取得した画像をImageViewに設定します。
-        image.setImageBitmap(result);
-        Log.d("動作確認","onPost");
+        if(isPlayList){
+            image.setImageResource(R.drawable.play_list);
+        }else if(result == null){
+            image.setImageResource(R.drawable.not_found);
+        }else{
+            image.setImageBitmap(result);
+        }
     }
 }
