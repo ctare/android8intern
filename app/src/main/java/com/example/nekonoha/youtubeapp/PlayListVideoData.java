@@ -18,11 +18,43 @@ public class PlayListVideoData extends PlayList {
     @Column("video_id")
     public String videoId;
 
+    @Column("title")
+    public String title;
+
+    @Column("thumbnail")
+    public String thumbnail;
+
     @Override
     public void create(LinearLayout linearLayout, Activity activity) {
         TextView textView = new TextView(activity);
-        textView.setText(this.videoId);
+        textView.setText(asVideo().id());
         textView.setTextSize(30);
         linearLayout.addView(textView);
+    }
+
+    public AsVideo asVideo(){
+        return new AsVideo();
+    }
+
+    private class AsVideo implements Video{
+        @Override
+        public String title() {
+            return PlayListVideoData.this.title;
+        }
+
+        @Override
+        public String id() {
+            return PlayListVideoData.this.videoId;
+        }
+
+        @Override
+        public String thumbnail() {
+            return PlayListVideoData.this.thumbnail;
+        }
+
+        @Override
+        public String description() {
+            return null;
+        }
     }
 }

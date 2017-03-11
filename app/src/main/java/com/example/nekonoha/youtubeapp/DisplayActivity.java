@@ -33,7 +33,7 @@ public class DisplayActivity extends AppCompatActivity implements ViewPager.OnPa
         }
 
         if(video == null) {
-            video = new Video(null);
+            video = new NormalVideo(null);
         }
         Log.d("display activity", "init success");
 

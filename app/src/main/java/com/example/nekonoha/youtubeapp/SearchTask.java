@@ -56,13 +56,12 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected void onPostExecute(JSONObject json) {
         try {
             JSONArray items = json.getJSONArray("items");
-            Video video = new Video(json);
 
             List<Video> videos = new ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
 
                 JSONObject item = items.getJSONObject(i);
-                videos.add(new Video(item));
+                videos.add(new NormalVideo(item));
 //
 //
 //                String videoId = item.getJSONObject("id").getString("videoId");
