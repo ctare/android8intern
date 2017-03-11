@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -56,7 +55,7 @@ public class TopFragment extends Fragment {
         int n = 2;
         int col = (int) Math.floor(videoList.videos.size() / (float) n);
         int row = n - (videoList.videos.size() % n);
-        Toast.makeText(getActivity(), String.format("%d, %d, %d", videoList.videos.size(), col, row), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), String.format("%d, %d, %d", videoList.videos.size(), col, row), Toast.LENGTH_SHORT).show();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         for (int j = 0; j < col; j++) {
             LinearLayout thumbnails = new LinearLayout(getActivity());

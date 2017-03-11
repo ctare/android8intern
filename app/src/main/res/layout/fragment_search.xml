@@ -10,18 +10,22 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        android:visibility="visible">
+        android:visibility="visible"
+        app:subtitleTextColor="@color/colorFontDark"
+        app:titleTextColor="@color/colorFontDark">
 
         <SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/colorFontDark"
             android:visibility="visible">
 
         </SearchView>
+
 
     </android.support.v7.widget.Toolbar>
 </FrameLayout>
