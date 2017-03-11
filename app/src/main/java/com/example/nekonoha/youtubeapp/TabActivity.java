@@ -38,7 +38,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setSupportActionBar(toolbar);
 
 
-        deleteDatabase("mytube");
+//        deleteDatabase("mytube");
         Ollie.with(getApplicationContext())
                 .setName("mytube")
                 .setVersion(1)
@@ -112,8 +112,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                     case 0:
                         return new SettingsFragment();
                     case 1:
-                        Fragment topPage = SearchTask.oldResult();
-                        return topPage == null ? new TopFragment() : topPage;
+//                        Fragment topPage = SearchTask.oldResult();
+//                        return topPage == null ? new TopFragment() : topPage;
+                        return new TopFragment();
                     case 2:
                         return new PlayListFragment();
                     default:
