@@ -1,5 +1,6 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,7 +30,7 @@ public class SettingsFragment extends Fragment {
     private int ANIMATION_DURATION = 500;
     static final Interpolator FAST_OUT_SLOW_IN_INTERPOLATOR = new FastOutSlowInInterpolator();
     private Spinner sort;
-    private String spinnerItems[] = {"Date", "Rating", "Relevance", "Title","ViewCount"};
+    private String spinnerItems[] = SettingsData.sortEn;
     private TextView now_sort;
 
     @Override
@@ -53,13 +54,21 @@ public class SettingsFragment extends Fragment {
         results = (TextView) getActivity().findViewById(R.id.results);
 
         //初期値
-        results.setText((seekBar.getProgress() + 1) * 2 + "件");
+        final SettingsData settingsData = SettingsData.getInstance();
+        Integer now = settingsData.searchLimit;
+        if(now == null){
+            results.setText(SettingsData.DEFAULT_SEARCH_LIMIT.toString() + "件");
+        } else {
+            results.setText(now.toString() + "件");
+            seekBar.setProgress(now / 2  - 1);
+        }
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //ドラッグしたとき
-                results.setText((progress + 1) * 2 + "件");
+                Integer result = (progress + 1) * 2;
+                results.setText(result.toString() + "件");
             }
 
             @Override
@@ -70,8 +79,9 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO: 2017/03/11 データベースに保存する
-                Log.d("SEEK", (seekBar.getProgress() + 1) * 2 + "");
+                Integer result = (seekBar.getProgress() + 1) * 2;
+                settingsData.searchLimit = result;
+                settingsData.save();
 
             }
         });

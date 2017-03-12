@@ -39,14 +39,14 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setSupportActionBar(toolbar);
 
 
-        deleteDatabase("mytube");
+//        deleteDatabase("mytube");
         Ollie.with(getApplicationContext())
                 .setName("mytube")
                 .setVersion(1)
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
         Log.d("video id", "init");
-        PlayList.createSampleData();
+//        PlayList.createSampleData();
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
             Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
         }
