@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -24,6 +25,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
     private static Fragment oldResult = null;
     final private String API_KEY = "AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU";
+    private String query = null;
 
     public SearchTask(Fragment fragment) {
         this.fragment = fragment;
@@ -39,15 +41,11 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
                 term += param + " ";
             }
 
-            String query;
-
             //並び替え
             SettingsData settingsData = SettingsDataStatic.getInstance();
             query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=";
             query += settingsData.getSearchLimit();
             query += "&order=" + settingsData.getSortType() + "&type=video";
-
-            Log.d("settings", settingsData.getSearchLimit().toString());
 
             url = new URL(query);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -72,18 +70,14 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
 
                 JSONObject item = items.getJSONObject(i);
                 videos.add(new NormalVideo(item));
-//
-//
-//                String videoId = item.getJSONObject("id").getString("videoId");
-//                String title = item.getJSONObject("snippet").getString("title");
-//                String thumbnail = item.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-//
-//                Log.d("videoId", videoId);
-//                Log.d("title", title);
-//                Log.d("url", thumbnail);
             }
 
             NormalVideoList normalVideoList = new NormalVideoList(videos);
+            try{
+                String nextToken = json.getString("nextPageToken");
+                normalVideoList.setNextPage(query, nextToken);
+            }catch (JSONException ignored){
+            }
             Bundle args = new Bundle();
             args.putSerializable("videos", normalVideoList);
 
@@ -95,7 +89,6 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
                     .replace(R.id.thumbnails, topFragment)
                     .commit();
             oldResult = topFragment;
-
         } catch (Exception ex) {
             System.out.println(ex);
         }

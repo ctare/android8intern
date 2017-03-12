@@ -26,6 +26,7 @@ public class TopFragment extends Fragment {
     private View created = null;
     NestedScrollView scrollView;
     LinearLayout thumbnails;
+    public NormalVideoList searchedVideoList = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,11 +39,22 @@ public class TopFragment extends Fragment {
         if(created != null){
             return created;
         }
-        created = inOnCreateView(R.id.thumbnails, this, inflater.inflate(R.layout.fragment_top, null));
+        created = inOnCreateView(R.id.thumbnails, this, inflater.inflate(R.layout.fragment_top, null), new inOnCreateViewCallback() {
+            @Override
+            public void call(VideoList videoList) {
+                if(videoList instanceof NormalVideoList){
+                    searchedVideoList = (NormalVideoList) videoList;
+                }
+            }
+        });
         return created;
     }
 
-    public static View inOnCreateView(int targetLayout, Fragment fragment, View view){
+    public interface inOnCreateViewCallback{
+        void call(VideoList videoList);
+    }
+
+    public static View inOnCreateView(int targetLayout, Fragment fragment, View view, inOnCreateViewCallback callback){
         VideoList videoList = null;
         if(fragment.getArguments() != null){
             Serializable arg = fragment.getArguments().getSerializable("videos");
@@ -53,6 +65,10 @@ public class TopFragment extends Fragment {
 
         if(videoList == null) {
             videoList = new NormalVideoList(new ArrayList<Video>());
+        }
+
+        if(callback != null) {
+            callback.call(videoList);
         }
 
         LinearLayout.LayoutParams outer = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -109,18 +125,16 @@ public class TopFragment extends Fragment {
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int scrollHeight = thumbnails.getHeight() - scrollView.getHeight();
                 if(scrollY >= scrollHeight){
-                    Log.d("OK","OK");
-                    // TODO: 2017/03/12 ここでタスク
-
+                    if(searchedVideoList != null && searchedVideoList.nextToken != null){
+                        addNextPage(searchedVideoList.query, searchedVideoList.nextToken);
+                    }
                 }
-                Log.d("OK",scrollHeight + "," + scrollY);
-
             }
         });
     }
 
-    public void addNextPage(final String nextPageToken){
+    public void addNextPage(final String query, final String nextToken){
         NextPageTask task = new NextPageTask(this);
-        task.execute(nextPageToken);
+        task.execute(query, nextToken);
     }
 }

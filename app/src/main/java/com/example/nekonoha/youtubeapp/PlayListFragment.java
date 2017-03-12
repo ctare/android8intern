@@ -24,6 +24,6 @@ public class PlayListFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return TopFragment.inOnCreateView(R.id.playlist_print, this, inflater.inflate(R.layout.fragment_play_list, null));
+        return TopFragment.inOnCreateView(R.id.playlist_print, this, inflater.inflate(R.layout.fragment_play_list, null), null);
     }
 }
