@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.LoopViewPager;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -104,6 +105,12 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             @Override
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
+
+                if(viewPager.getCurrentItem() == 1){
+                    NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scrollView);
+                    scrollView.fullScroll(View.FOCUS_UP);
+
+                }
             }
         });
 
