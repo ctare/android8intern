@@ -26,6 +26,14 @@
 
         </FrameLayout>
 
+        <Button
+            android:id="@+id/like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="♥"
+            android:textColor="@color/colorFont" />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -23,6 +24,9 @@ import java.util.ArrayList;
 
 public class TopFragment extends Fragment {
     private View created = null;
+    NestedScrollView scrollView;
+    LinearLayout thumbnails;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,5 +95,32 @@ public class TopFragment extends Fragment {
         }
         transaction.commit();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        scrollView = (NestedScrollView) getActivity().findViewById(R.id.scrollView);
+        thumbnails = (LinearLayout) getActivity().findViewById(R.id.thumbnails);
+
+
+        scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                int scrollHeight = thumbnails.getHeight() - scrollView.getHeight();
+                if(scrollY >= scrollHeight){
+                    Log.d("OK","OK");
+                    // TODO: 2017/03/12 ここでタスク
+
+                }
+                Log.d("OK",scrollHeight + "," + scrollY);
+
+            }
+        });
+    }
+
+    public void addNextPage(final String nextPageToken){
+        NextPageTask task = new NextPageTask(this);
+        task.execute(nextPageToken);
     }
 }
