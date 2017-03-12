@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.HttpURLConnection;
@@ -24,6 +25,7 @@ public class NextPageTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
     private static Fragment oldResult = null;
     final private String API_KEY = "AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU";
+    private String query = null;
 
 
     public NextPageTask(Fragment fragment) {
@@ -33,18 +35,8 @@ public class NextPageTask extends AsyncTask<String, Void, JSONObject> {
     @Override
     protected JSONObject doInBackground(String... params) {
         try {
-            URL url = null;
-            String nextPageToken = params[0];
-
-            String query;
-
-            query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&part=id,snippet";
-            query += "&type=video";
-            query += "&" + nextPageToken;
-
-            // TODO: 2017/03/12 &maxResult="" 追加して
-
-            url = new URL(query);
+            query = params[0];
+            URL url = new URL(params[0] + "&pageToken=" + params[1]);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             String str = InputStreamToString(con.getInputStream());
             Log.d("HTTP", str);
@@ -67,18 +59,14 @@ public class NextPageTask extends AsyncTask<String, Void, JSONObject> {
 
                 JSONObject item = items.getJSONObject(i);
                 videos.add(new NormalVideo(item));
-//
-//
-//                String videoId = item.getJSONObject("id").getString("videoId");
-//                String title = item.getJSONObject("snippet").getString("title");
-//                String thumbnail = item.getJSONObject("snippet").getJSONObject("thumbnails").getJSONObject("high").getString("url");
-//
-//                Log.d("videoId", videoId);
-//                Log.d("title", title);
-//                Log.d("url", thumbnail);
             }
 
             NormalVideoList normalVideoList = new NormalVideoList(videos);
+            try{
+                String nextToken = json.getString("nextPageToken");
+                normalVideoList.setNextPage(query, nextToken);
+            }catch (JSONException ignored){
+            }
             Bundle args = new Bundle();
             args.putSerializable("videos", normalVideoList);
 
