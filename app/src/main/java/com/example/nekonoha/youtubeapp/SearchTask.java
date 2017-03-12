@@ -47,9 +47,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             query += settingsData.getSearchLimit();
             query += "&order=" + settingsData.getSortType() + "&type=video";
 
-            query += "&type=video&maxResults=12";
-
-            // TODO: 2017/03/12  maxResults="" 追加して
+            Log.d("settings", settingsData.getSearchLimit().toString());
 
             url = new URL(query);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();

@@ -16,7 +16,7 @@ import ollie.query.Select;
  */
 
 @Table("settings_data")
-public class SettingsData extends Model{
+public class SettingsData extends PlayList{
     @Column("search_limit")
     public Integer searchLimit;
     public Integer getSearchLimit(){
