@@ -55,13 +55,9 @@ public class SettingsFragment extends Fragment {
 
         //初期値
         final SettingsData settingsData = SettingsDataStatic.getInstance();
-        Integer now = settingsData.searchLimit;
-        if(now == null){
-            results.setText(SettingsDataStatic.DEFAULT_SEARCH_LIMIT.toString() + "件");
-        } else {
-            results.setText(now.toString() + "件");
-            seekBar.setProgress(now / 2  - 1);
-        }
+        Integer now = settingsData.getSearchLimit();
+        results.setText(now.toString() + "件");
+        seekBar.setProgress(now / 2  - 1);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
