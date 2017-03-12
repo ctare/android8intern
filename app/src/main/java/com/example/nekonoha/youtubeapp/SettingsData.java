@@ -1,5 +1,8 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.util.Log;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -14,26 +17,23 @@ import ollie.query.Select;
 
 @Table("settings_data")
 public class SettingsData extends Model{
-    public static String[] sortEn = {"data", "rating", "relevance", "title", "viewCount"};
-    private static String[] sortJa = {"日付", "評価", "関連度", "タイトル", "再生数"};
-    public static HashMap<String, String> toJa = new HashMap<String, String>(){{
+    public static String[] sortEn = {"date", "rating", "relevance", "title", "viewCount"};
+    public static String[] sortJa = {"日付", "評価", "関連度", "タイトル", "再生数"};
+    public static HashMap<String, String> toEn = new HashMap<String, String>(){{
         for (int i = 0; i < sortEn.length; i++) {
-            put(sortEn[i], sortJa[i]);
+            put(sortJa[i], sortEn[i]);
         }
     }};
-    public static String[] toJa(){
-        String[] result = new String[sortEn.length];
-        for (int i = 0; i < sortEn.length; i++) {
-            result[i] = sortJa[i];
-        }
-        return result;
+    public static int getItemPosition(String en){
+        int position = Arrays.asList(sortEn).indexOf(en);
+        return position == -1 ? getItemPosition(DEFAULT_SORT_TYPE) : position;
     }
 
     public static Integer DEFAULT_SEARCH_LIMIT = 2;
     @Column("search_limit")
     public Integer searchLimit;
 
-    public static String DEFAULT_SORT_TYPE = "";
+    public static String DEFAULT_SORT_TYPE = "date";
     @Column("sort_type")
     public String sortType;
 
