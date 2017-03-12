@@ -1,13 +1,11 @@
 package com.example.nekonoha.youtubeapp;
 
-import android.media.audiofx.BassBoost;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,8 +91,9 @@ public class SettingsFragment extends Fragment {
                 if (isOpendSearch) {
                     ViewCompat.animate(search_settings)
                             .alpha(0f)
-                            .translationY(-search_settings.getHeight())
-                            .scaleX(1f)
+//                            .translationY(-search_settings.getHeight())
+                            .translationY(-search_settings.getHeight()/2)
+                            .scaleY(0f)
                             .setDuration(ANIMATION_DURATION)
                             .setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR)
                             .setListener(new ViewPropertyAnimatorListenerAdapter() {
@@ -108,7 +107,7 @@ public class SettingsFragment extends Fragment {
                     ViewCompat.animate(search_settings)
                             .alpha(1f)
                             .translationY(0)
-                            .scaleX(1f)
+                            .scaleY(1f)
                             .setDuration(ANIMATION_DURATION)
                             .setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR)
                             .setListener(new ViewPropertyAnimatorListenerAdapter() {

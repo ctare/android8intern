@@ -29,7 +29,6 @@ public class SearchFragment extends Fragment{
         sview.setQueryHint("動画を検索する");
 
 
-
         sview.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

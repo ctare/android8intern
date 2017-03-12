@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,7 @@ public class DisplayFragment extends Fragment {
         TextView description = (TextView) view.findViewById(R.id.description);
 
         title.setText(video.title());
-        description.setText(video.description());
+//        description.setText(video.description());
 
         // フラグメント起動 （v4の作法で）
         Bundle bundle = new Bundle();
@@ -53,6 +54,12 @@ public class DisplayFragment extends Fragment {
         manager.beginTransaction()
                 .replace(R.id.main, fragment)
                 .commit();
+
+        DescriptionGetTask d_task = new DescriptionGetTask(this);
+        d_task.execute(video.id());
+        Log.d("ids",video.id());
+
+
 
         return view;
     }
