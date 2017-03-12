@@ -1,6 +1,10 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.content.res.ColorStateList;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +22,8 @@ import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import ollie.Ollie;
 import ollie.query.Select;
 
@@ -27,6 +33,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     ColorStateList[] defaultColors = new ColorStateList[3];
 
     SearchView search;
+    SensorManager sensorManager;
 
     final String[] pageTitle = {"Settings", "Search", "PlayList"};
 
@@ -57,6 +64,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         setContentView(R.layout.activity_tab);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); // in on create
 
         deleteDB(this); // debug
         Ollie.with(getApplicationContext())
@@ -212,49 +221,52 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     @Override
     public void onFragmentInteraction(Uri uri) {
     }
+    SensorEventListener accelerometer = new SensorEventListener() {
+        private boolean once = true;
+        private int count = 0;
+        private final int INTERVAL = 2;
+        @Override
+        public void onSensorChanged(SensorEvent sensorEvent) {
+            if(sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
+                float x = sensorEvent.values[0];
+                float y = sensorEvent.values[1];
+                float z = sensorEvent.values[2];
 
+                if(once && y > 2){
+                    loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
+                    once = false;
+                    count = 0;
+                } else if(once && y < -2){
+                    int pos = loopViewPager.getCurrentItem() - 1;
+                    loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
+                    once = false;
+                    count = 0;
+                } else {
+                    if(count > INTERVAL) {
+                        once = true;
+                    }
+                }
+            }
+            if(count <= INTERVAL) count++;
+        }
 
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int i) {
+        }};
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        sensorManager.unregisterListener(accelerometer);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_GYROSCOPE);
+        if(!sensors.isEmpty()){
+            Sensor s = sensors.get(0);
+            sensorManager.registerListener(accelerometer, s, SensorManager.SENSOR_DELAY_NORMAL);
+        }
+    }
 }
-
-//        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); // in on create
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
-//        if(!sensors.isEmpty()){
-//            Sensor s = sensors.get(0);
-//            sensorManager.registerListener(new SensorEventListener() {
-//                private float beforeX = 0;
-//                private boolean once = true;
-//                private int count = 0;
-//                private final int INTERVAL = 20;
-//                @Override
-//                public void onSensorChanged(SensorEvent sensorEvent) {
-//                    if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
-//                        float x = sensorEvent.values[0];
-//
-//                        if(once && beforeX - x > 10){
-//                            loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
-//                            once = false;
-//                            count = 0;
-//                        } else if(once && beforeX - x < -10){
-//                            int pos = loopViewPager.getCurrentItem() - 1;
-//                            loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
-//                            once = false;
-//                            count = 0;
-//                        } else {
-//                            if(count > INTERVAL) {
-//                                once = true;
-//                            }
-//                        }
-//                        beforeX = x;
-//                    }
-//                    if(count <= INTERVAL) count++;
-//                }
-//
-//                @Override
-//                public void onAccuracyChanged(Sensor sensor, int i) {
-//                }
-//            }, s, SensorManager.SENSOR_DELAY_NORMAL);
-//        }
-//    }
