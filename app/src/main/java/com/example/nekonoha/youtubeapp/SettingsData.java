@@ -32,10 +32,16 @@ public class SettingsData extends Model{
     public static Integer DEFAULT_SEARCH_LIMIT = 2;
     @Column("search_limit")
     public Integer searchLimit;
+    public Integer getSearchLimit(){
+        return this.searchLimit == null ? DEFAULT_SEARCH_LIMIT : this.searchLimit;
+    }
 
     public static String DEFAULT_SORT_TYPE = "date";
     @Column("sort_type")
     public String sortType;
+    public String getSortType(){
+        return this.sortType == null ? DEFAULT_SORT_TYPE : this.sortType;
+    }
 
     public static SettingsData getInstance(){
         SettingsData settingsData = Select.from(SettingsData.class).fetchSingle();

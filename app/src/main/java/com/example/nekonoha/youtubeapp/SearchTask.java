@@ -42,44 +42,10 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             String query;
 
             //並び替え
-            // TODO: 2017/03/11 ソートなんとかする
-
-//            if (true) {
-//                //日付
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-//                query += "&order=date";
-//                query += "&type=video";
-//            } else if (true) {
-//                //評価
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-//                query += "&order=rating";
-//                query += "&type=video";
-//
-//            } else if (true) {
-//                //関連度
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-//                query += "&order=relevance";
-//                query += "&type=video";
-//
-//            } else if (true) {
-//                //タイトル
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-//                query += "&order=title";
-//                query += "&type=video";
-//
-//            } else if (true) {
-//                //再生数
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-//                query += "&order=viewCount";
-//                query += "&type=video";
-//            }
-
-            if (true) {
-                //関連度
-                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=50";
-                query += "&order=relevance";
-                query += "&type=video";
-            }
+            SettingsData settingsData = SettingsData.getInstance();
+            query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=";
+            query += settingsData.getSearchLimit();
+            query += "&order=" + settingsData.getSortType() + "&type=video";
 
             url = new URL(query);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
