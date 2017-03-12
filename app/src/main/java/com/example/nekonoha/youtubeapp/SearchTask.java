@@ -42,7 +42,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             String query;
 
             //並び替え
-            SettingsData settingsData = SettingsData.getInstance();
+            SettingsData settingsData = SettingsDataStatic.getInstance();
             query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=";
             query += settingsData.getSearchLimit();
             query += "&order=" + settingsData.getSortType() + "&type=video";

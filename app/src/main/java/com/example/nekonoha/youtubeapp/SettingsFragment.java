@@ -30,7 +30,7 @@ public class SettingsFragment extends Fragment {
     private int ANIMATION_DURATION = 500;
     static final Interpolator FAST_OUT_SLOW_IN_INTERPOLATOR = new FastOutSlowInInterpolator();
     private Spinner sort;
-    private String spinnerItems[] = SettingsData.sortJa;
+    private String spinnerItems[] = SettingsDataStatic.sortJa;
     private TextView now_sort;
 
     @Override
@@ -54,10 +54,10 @@ public class SettingsFragment extends Fragment {
         results = (TextView) getActivity().findViewById(R.id.results);
 
         //初期値
-        final SettingsData settingsData = SettingsData.getInstance();
+        final SettingsData settingsData = SettingsDataStatic.getInstance();
         Integer now = settingsData.searchLimit;
         if(now == null){
-            results.setText(SettingsData.DEFAULT_SEARCH_LIMIT.toString() + "件");
+            results.setText(SettingsDataStatic.DEFAULT_SEARCH_LIMIT.toString() + "件");
         } else {
             results.setText(now.toString() + "件");
             seekBar.setProgress(now / 2  - 1);
@@ -128,7 +128,6 @@ public class SettingsFragment extends Fragment {
         });
 
         sort = (Spinner)getActivity().findViewById(R.id.sort);
-        Log.d("settings", settingsData.sortType);
         now_sort = (TextView) getActivity().findViewById(R.id.now_sort);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, spinnerItems);
@@ -140,7 +139,7 @@ public class SettingsFragment extends Fragment {
                 String item = (String) sort.getSelectedItem();
 
                 now_sort.setText(item);
-                settingsData.sortType = SettingsData.toEn.get(item);
+                settingsData.sortType = SettingsDataStatic.toEn.get(item);
                 settingsData.save();
             }
 
@@ -149,6 +148,6 @@ public class SettingsFragment extends Fragment {
 
             }
         });
-        sort.setSelection(SettingsData.getItemPosition(settingsData.sortType));
+        sort.setSelection(SettingsDataStatic.getItemPosition(settingsData.sortType));
     }
 }
