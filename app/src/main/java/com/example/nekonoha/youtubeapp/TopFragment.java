@@ -1,7 +1,6 @@
 package com.example.nekonoha.youtubeapp;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,13 +35,13 @@ public class TopFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        if(created != null){
+        if (created != null) {
             return created;
         }
         created = inOnCreateView(R.id.thumbnails, this, inflater.inflate(R.layout.fragment_top, null), new inOnCreateViewCallback() {
             @Override
             public void call(VideoList videoList) {
-                if(videoList instanceof NormalVideoList){
+                if (videoList instanceof NormalVideoList) {
                     searchedVideoList = (NormalVideoList) videoList;
                 }
             }
@@ -50,24 +49,24 @@ public class TopFragment extends Fragment {
         return created;
     }
 
-    public interface inOnCreateViewCallback{
+    public interface inOnCreateViewCallback {
         void call(VideoList videoList);
     }
 
-    public static View inOnCreateView(int targetLayout, Fragment fragment, View view, inOnCreateViewCallback callback){
+    public static View inOnCreateView(int targetLayout, Fragment fragment, View view, inOnCreateViewCallback callback) {
         VideoList videoList = null;
-        if(fragment.getArguments() != null){
+        if (fragment.getArguments() != null) {
             Serializable arg = fragment.getArguments().getSerializable("videos");
-            if(arg != null){
+            if (arg != null) {
                 videoList = (VideoList) arg;
             }
         }
 
-        if(videoList == null) {
+        if (videoList == null) {
             videoList = new NormalVideoList(new ArrayList<Video>());
         }
 
-        if(callback != null) {
+        if (callback != null) {
             callback.call(videoList);
         }
 
@@ -76,8 +75,8 @@ public class TopFragment extends Fragment {
         LinearLayout thumbnails_wrap = (LinearLayout) view.findViewById(targetLayout);
         int n = 2;
 
-        int row = (int)Math.ceil(videoList.videos().size() / (float) n);
-        int col = n ;
+        int row = (int) Math.ceil(videoList.videos().size() / (float) n);
+        int col = n;
 
 
         FragmentTransaction transaction = fragment.getChildFragmentManager().beginTransaction();
@@ -86,11 +85,11 @@ public class TopFragment extends Fragment {
             LinearLayout thumbnails = new LinearLayout(fragment.getActivity());
             thumbnails.setLayoutParams(inner);
             thumbnails.setOrientation(LinearLayout.HORIZONTAL);
-            thumbnails.setBackgroundColor(Color.BLACK);
+            // TODO: 2017/03/12 ここでプレイリストの色を決めてる　
             thumbnails.setGravity(Gravity.CENTER);
 
-            if(j == row - 1 && videoList.videos().size()%n != 0){
-                col = videoList.videos().size()% n;
+            if (j == row - 1 && videoList.videos().size() % n != 0) {
+                col = videoList.videos().size() % n;
                 Log.d("row,col", row + "," + col + "," + j);
             }
 
@@ -98,12 +97,12 @@ public class TopFragment extends Fragment {
             for (int i = 0; i < col; i++) {
                 Fragment t_fragment = new ThumbnailFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("video", videoList.videos().get(i + j*n));
+                args.putSerializable("video", videoList.videos().get(i + j * n));
                 t_fragment.setArguments(args);
 
                 FrameLayout frameLayout = new FrameLayout(fragment.getActivity());
                 thumbnails.addView(frameLayout);
-                frameLayout.setId(10000 + i + j*n);
+                frameLayout.setId(10000 + i + j * n);
                 frameLayout.setLayoutParams(inner);
                 transaction.replace(frameLayout.getId(), t_fragment);
             }
@@ -123,8 +122,8 @@ public class TopFragment extends Fragment {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
                 int scrollHeight = thumbnails.getHeight() - scrollView.getHeight();
-                if(scrollY >= scrollHeight){
-                    if(searchedVideoList != null && searchedVideoList.nextToken != null){
+                if (scrollY >= scrollHeight) {
+                    if (searchedVideoList != null && searchedVideoList.nextToken != null) {
                         addNextPage(searchedVideoList.query, searchedVideoList.nextToken);
                     }
                 }
@@ -132,12 +131,12 @@ public class TopFragment extends Fragment {
         });
         Log.d("height", String.valueOf(thumbnails.getHeight()));
         Log.d("height", String.valueOf(scrollView.getHeight()));
-        if(thumbnails.getHeight() <= scrollView.getHeight()){
+        if (thumbnails.getHeight() <= scrollView.getHeight()) {
             addNextPage(searchedVideoList.query, searchedVideoList.nextToken);
         }
     }
 
-    public void addNextPage(final String query, final String nextToken){
+    public void addNextPage(final String query, final String nextToken) {
         NextPageTask task = new NextPageTask(this);
         task.execute(query, nextToken);
     }
