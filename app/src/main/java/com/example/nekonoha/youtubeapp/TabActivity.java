@@ -69,6 +69,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             PlayListFolderData playListFolderData = new PlayListFolderData();
             playListFolderData.name = "play list";
             playListFolderData.save();
+            playListFolderData.add(playListFolderData);
         }
 
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
@@ -201,8 +202,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 tab[i].setTextColor(defaultColors[i]);
             }
         }
-//        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
-
     }
 
     @Override

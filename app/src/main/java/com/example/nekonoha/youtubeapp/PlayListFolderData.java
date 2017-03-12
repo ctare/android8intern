@@ -37,7 +37,7 @@ public class PlayListFolderData extends PlayList implements Serializable{
         return new AsVideoList();
     }
 
-    private class AsVideoList implements VideoList, Serializable{
+    public class AsVideoList implements VideoList, Serializable{
         @Override
         public List<Video> videos() {
             List<Video> videos = new ArrayList<>();
@@ -48,6 +48,10 @@ public class PlayListFolderData extends PlayList implements Serializable{
                 videos.add(videoData.asVideo());
             }
             return videos;
+        }
+
+        public PlayListFolderData asData(){
+            return PlayListFolderData.this;
         }
     }
 

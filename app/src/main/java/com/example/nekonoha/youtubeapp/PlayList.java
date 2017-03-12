@@ -82,7 +82,7 @@ public abstract class PlayList extends Model{
     public void addItem(PlayList playList){
     }
 
-    public PlayList getParent() {
+    public PlayListFolderData getParent() {
         return Select.from(PlayListFolderData.class).where(PlayListFolderData._ID + " == ?", this.parent).fetchSingle();
     }
 
