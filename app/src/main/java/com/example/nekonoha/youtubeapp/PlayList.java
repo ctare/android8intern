@@ -1,23 +1,15 @@
 package com.example.nekonoha.youtubeapp;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import java.util.List;
 
 import ollie.Model;
 import ollie.annotation.Column;
-import ollie.annotation.NotNull;
 import ollie.annotation.Table;
-import ollie.query.Delete;
 import ollie.query.Select;
 import ollie.util.QueryUtils;
 
@@ -26,11 +18,11 @@ import ollie.util.QueryUtils;
  */
 
 @Table("abstract_playlist")
-public abstract class PlayList extends Model{
+public abstract class PlayList extends Model {
     @Column("parent")
     public Long parent;
 
-    public static void createSampleData(){
+    public static void createSampleData() {
         QueryUtils.execSQL("delete from folder_data where name like 'sample%'");
         QueryUtils.execSQL("delete from video_data where video_id like 'sample%'");
         PlayListFolderData playListFolderData = new PlayListFolderData();
@@ -73,13 +65,13 @@ public abstract class PlayList extends Model{
         playListFolderData.add(inner2);
     }
 
-    public final void add(PlayList playList){
+    public final void add(PlayList playList) {
         addItem(playList);
         playList.setParent(this);
         playList.save();
     }
 
-    public void addItem(PlayList playList){
+    public void addItem(PlayList playList) {
     }
 
     public PlayList getParent() {
@@ -90,7 +82,7 @@ public abstract class PlayList extends Model{
         this.parent = parent.save();
     }
 
-    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData){
+    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData, TextView textView) {
         VideoList videos = playListFolderData.asVideoList();
         Bundle args = new Bundle();
         args.putSerializable("videos", videos);
@@ -102,9 +94,10 @@ public abstract class PlayList extends Model{
                 .beginTransaction()
                 .replace(R.id.play_list_wrap, playListFragment)
                 .commit();
-//        TextView textView = (TextView) playListFragment.getActivity().findViewById(R.id.play_list_title);
-//        Log.d("textview", playListFolderData.name);
-//        Log.d("textview", textView == null ? "null" : "not null");
-//        textView.setText(playListFolderData.name);
+
+        Log.d("textview", playListFolderData.name);
+        Log.d("textview", textView == null ? "null" : textView.getText().toString());
+
+        //textView.setText(playListFolderData.name);
     }
 }

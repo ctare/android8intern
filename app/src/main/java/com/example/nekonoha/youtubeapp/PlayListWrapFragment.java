@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import ollie.query.Select;
 
@@ -24,6 +25,6 @@ public class PlayListWrapFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
-        PlayList.viewPlayList(this.getActivity(), playList);
+        PlayList.viewPlayList(this.getActivity(), playList, (TextView) getActivity().findViewById(R.id.play_list_title));
     }
 }
