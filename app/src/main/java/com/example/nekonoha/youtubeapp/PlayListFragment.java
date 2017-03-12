@@ -48,14 +48,17 @@ public class PlayListFragment extends Fragment{
         Log.d("activ", playListFolderData == null ? "null" : "not null");
         if(playListFolderData != null){
             TextView textView = (TextView) view.findViewById(R.id.play_list_title);
-            textView.setText(playListFolderData.name);
-            final PlayListFolderData finalPlayListFolderData = playListFolderData;
+            final PlayListFolderData parent = playListFolderData.getParent();
+            if(parent != null) {
+                textView.setText("../" + parent.name);
+            } else {
+                textView.setText(playListFolderData.name);
+            }
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PlayListFolderData playList = finalPlayListFolderData.getParent();
-                    if(playList != null){
-                        PlayList.viewPlayList(getActivity(), playList);
+                    if(parent != null){
+                        PlayList.viewPlayList(getActivity(), parent);
                     }
                 }
             });

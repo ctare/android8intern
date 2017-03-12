@@ -69,7 +69,6 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             PlayListFolderData playListFolderData = new PlayListFolderData();
             playListFolderData.name = "play list";
             playListFolderData.save();
-            playListFolderData.add(playListFolderData);
         }
 
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
