@@ -68,7 +68,7 @@ public class ThumbnailFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 if(PlayListFolderData.isPlayList(video)){
-                    PlayList.viewPlayList(ThumbnailFragment.this.getActivity(), ((PlayListFolderData.AsVideo) video).asData());
+                    PlayList.viewPlayList(ThumbnailFragment.this.getActivity(), ((PlayListFolderData.AsVideo) video).asData(), true);
                 }else{
                     Intent intent = new Intent(getActivity(), DisplayActivity.class);
                     intent.putExtra("video", this.video);

@@ -45,7 +45,7 @@ public class PlayListFragment extends Fragment{
             }
         }
 
-        Log.d("activ", playListFolderData == null ? "null" : "not null");
+        PlayListFolderData.select(playListFolderData);
         if(playListFolderData != null){
             TextView textView = (TextView) view.findViewById(R.id.play_list_title);
             final PlayListFolderData parent = playListFolderData.getParent();
@@ -58,7 +58,7 @@ public class PlayListFragment extends Fragment{
                 @Override
                 public void onClick(View view) {
                     if(parent != null){
-                        PlayList.viewPlayList(getActivity(), parent);
+                        PlayList.viewPlayList(getActivity(), parent, true);
                     }
                 }
             });
