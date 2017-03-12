@@ -1,5 +1,7 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.util.Log;
+
 import java.util.Arrays;
 import java.util.HashMap;
 
