@@ -15,7 +15,6 @@
             android:id="@+id/play_list_wrap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:orientation="vertical" />
 
 

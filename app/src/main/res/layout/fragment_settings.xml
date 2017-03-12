@@ -127,26 +127,6 @@
 
         </TableLayout>
 
-        <TableLayout
-            android:id="@+id/test"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/test"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TEST"
-                    android:textColor="@color/colorFontDark"
-                    android:textSize="30sp" />
-            </TableRow>
-
-        </TableLayout>
     </LinearLayout>
 
 </FrameLayout>
