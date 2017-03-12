@@ -20,7 +20,7 @@ public class SettingsData extends PlayList{
     @Column("search_limit")
     public Integer searchLimit;
     public Integer getSearchLimit(){
-        return this.searchLimit == null ? SettingsDataStatic.DEFAULT_SEARCH_LIMIT : this.searchLimit;
+        return (this.searchLimit == null || this.searchLimit == 0) ? SettingsDataStatic.DEFAULT_SEARCH_LIMIT : this.searchLimit;
     }
 
     @Column("sort_type")
