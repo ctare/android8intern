@@ -32,14 +32,16 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
     // --------------------------- debug
     public static boolean flg = false;
-    public void deleteDB(AppCompatActivity a){
-        if(flg){
+
+    public void deleteDB(AppCompatActivity a) {
+        if (flg) {
             a.deleteDatabase("mytube");
             Log.d("dbdebug", "delete db");
         }
     }
-    public void initDB(AppCompatActivity a){
-        if(flg){
+
+    public void initDB(AppCompatActivity a) {
+        if (flg) {
             PlayList.createSampleData();
             Log.d("dbdebug", "init db");
         }
@@ -106,10 +108,11 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
             public void onClick(View v) {
                 viewPager.setCurrentItem(1);
 
-                if(viewPager.getCurrentItem() == 1){
+                if (viewPager.getCurrentItem() == 1) {
                     NestedScrollView scrollView = (NestedScrollView) findViewById(R.id.scrollView);
-                    scrollView.fullScroll(View.FOCUS_UP);
-
+                    if (scrollView != null) {
+                        scrollView.fullScroll(View.FOCUS_UP);
+                    }
                 }
             }
         });
