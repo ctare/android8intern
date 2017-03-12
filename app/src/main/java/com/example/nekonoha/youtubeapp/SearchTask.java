@@ -42,35 +42,11 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             String query;
 
             //並び替え
-            // TODO: 2017/03/11 ソートなんとかする
 
-//            if (true) {
-//                //日付
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=date";
-//            } else if (true) {
-//                //評価
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=rating";
-//            } else if (true) {
-//                //関連度
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=relevance";
-//            } else if (true) {
-//                //タイトル
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=title";
-//            } else if (true) {
-//                //再生数
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=viewCount";
-//            }
-
-            if (true) {
-                //関連度
-                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-                query += "&order=relevance";
-            }
+            SettingsData settingsData = SettingsData.getInstance();
+            query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet&maxResults=";
+            query += settingsData.getSearchLimit();
+            query += "&order=" + settingsData.getSortType() + "&type=video";
 
             query += "&type=video&maxResults=12";
 
