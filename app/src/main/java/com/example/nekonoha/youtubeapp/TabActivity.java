@@ -215,3 +215,46 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
 
 }
+
+//        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE); // in on create
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        List<Sensor> sensors = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+//        if(!sensors.isEmpty()){
+//            Sensor s = sensors.get(0);
+//            sensorManager.registerListener(new SensorEventListener() {
+//                private float beforeX = 0;
+//                private boolean once = true;
+//                private int count = 0;
+//                private final int INTERVAL = 20;
+//                @Override
+//                public void onSensorChanged(SensorEvent sensorEvent) {
+//                    if(sensorEvent.sensor.getType() == Sensor.TYPE_ACCELEROMETER){
+//                        float x = sensorEvent.values[0];
+//
+//                        if(once && beforeX - x > 10){
+//                            loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
+//                            once = false;
+//                            count = 0;
+//                        } else if(once && beforeX - x < -10){
+//                            int pos = loopViewPager.getCurrentItem() - 1;
+//                            loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
+//                            once = false;
+//                            count = 0;
+//                        } else {
+//                            if(count > INTERVAL) {
+//                                once = true;
+//                            }
+//                        }
+//                        beforeX = x;
+//                    }
+//                    if(count <= INTERVAL) count++;
+//                }
+//
+//                @Override
+//                public void onAccuracyChanged(Sensor sensor, int i) {
+//                }
+//            }, s, SensorManager.SENSOR_DELAY_NORMAL);
+//        }
+//    }
