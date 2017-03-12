@@ -10,6 +10,7 @@ import ollie.Model;
 import ollie.annotation.Column;
 import ollie.annotation.PrimaryKey;
 import ollie.annotation.Table;
+import ollie.query.Select;
 
 /**
  * Created by c0115114 on 2017/03/10.

@@ -191,7 +191,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     @Override
     public void onPageSelected(int position) {
         if(position == 2) {
-            PlayListFolderData playList = Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle();
+            PlayListFolderData playList = PlayListFolderData.getSelected();
             PlayList.viewPlayList(this, playList);
         }
 

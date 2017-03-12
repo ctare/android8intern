@@ -26,6 +26,15 @@ import ollie.query.Select;
 @Table("folder_data")
 public class PlayListFolderData extends PlayList implements Serializable{
     public final static String IDENTIFICATION = "this is play list";
+    private static PlayListFolderData selected = null;
+    public static PlayListFolderData getSelected(){
+        return selected == null ? Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle() : selected;
+    }
+
+    public static void select(PlayListFolderData playListFolderData){
+        selected = playListFolderData;
+    }
+
 
     @Column("name")
     public String name;

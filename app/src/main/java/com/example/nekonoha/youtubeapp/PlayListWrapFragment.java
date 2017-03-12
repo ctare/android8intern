@@ -20,6 +20,12 @@ import ollie.query.Select;
  */
 
 public class PlayListWrapFragment extends Fragment {
+    public static void saveData(PlayList playList, String name){
+        PlayListFolderData playListFolderData = new PlayListFolderData();
+        playListFolderData.name = name;
+        playList.add(playListFolderData);
+        playList.save();
+    }
 
 
     @Nullable
@@ -31,8 +37,6 @@ public class PlayListWrapFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
-        PlayList.viewPlayList(this.getActivity(), playList);
 
         FloatingActionButton add_playlist = (FloatingActionButton) getActivity().findViewById(R.id.floatingActionButton);
         add_playlist.setOnClickListener(new View.OnClickListener() {
@@ -42,7 +46,7 @@ public class PlayListWrapFragment extends Fragment {
                 final EditText editView = new EditText(getActivity());
                 editView.setHint("プレイリストタイトル");
                 editView.setText("無題");
-
+                final PlayListFolderData playList = PlayListFolderData.getSelected();
 
                 new AlertDialog.Builder(getActivity())
                         .setIcon(android.R.drawable.ic_dialog_info)
@@ -53,11 +57,9 @@ public class PlayListWrapFragment extends Fragment {
                             @Override
                             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                                 if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-                                    // TODO: 2017/03/12 エンターしたときの動作
+                                    PlayListWrapFragment.saveData(playList, editView.getText().toString());
+                                    PlayList.viewPlayList(getActivity(), playList);
                                     dialog.dismiss();
-                                    Toast.makeText(getActivity(),
-                                            editView.getText().toString(),
-                                            Toast.LENGTH_LONG).show();
                                     return true;
                                 }
                                 return false;
@@ -65,10 +67,8 @@ public class PlayListWrapFragment extends Fragment {
                         })
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                // TODO: 2017/03/12 OKしたときの動作
-                                Toast.makeText(getActivity(),
-                                        editView.getText().toString(),
-                                        Toast.LENGTH_LONG).show();
+                                PlayListWrapFragment.saveData(playList, editView.getText().toString());
+                                PlayList.viewPlayList(getActivity(), playList);
                             }
                         })
                         .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {

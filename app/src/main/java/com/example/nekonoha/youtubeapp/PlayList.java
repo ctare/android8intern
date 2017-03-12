@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 import ollie.Model;
 import ollie.annotation.Column;
@@ -81,6 +82,7 @@ public abstract class PlayList extends Model {
     }
 
     public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData) {
+        PlayListFolderData.select(playListFolderData);
         VideoList videos = playListFolderData.asVideoList();
         Bundle args = new Bundle();
         args.putSerializable("videos", videos);

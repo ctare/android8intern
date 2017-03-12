@@ -71,7 +71,7 @@ public class DisplayFragment extends Fragment {
                 data.videoId = finalVideo.id();
                 data.title = finalVideo.title();
                 data.thumbnail = finalVideo.thumbnail();
-                PlayListFolderData top = Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle();
+                PlayListFolderData top = PlayListFolderData.getSelected();
                 top.add(data);
                 top.save();
                 Log.d("save", finalVideo.id());
