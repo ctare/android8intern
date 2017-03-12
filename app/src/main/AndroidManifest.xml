@@ -13,8 +13,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TestActivity"
             android:exported="true" />
@@ -24,7 +23,6 @@
         <activity
             android:name=".ScrollingTestActivity"
             android:exported="true"
-            android:label="@string/title_activity_scrolling_test"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ScrollDeAsobuActivity"
@@ -32,7 +30,7 @@
         <activity
             android:name=".TabActivity"
             android:exported="true"
-            android:label="@string/title_activity_tab"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
