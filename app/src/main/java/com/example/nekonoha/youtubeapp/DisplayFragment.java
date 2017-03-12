@@ -8,9 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
+
+import ollie.query.Select;
 
 
 public class DisplayFragment extends Fragment {
@@ -59,7 +62,21 @@ public class DisplayFragment extends Fragment {
         d_task.execute(video.id());
         Log.d("ids",video.id());
 
-
+        Button button = (Button) view.findViewById(R.id.like);
+        final Video finalVideo = video;
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PlayListVideoData data = new PlayListVideoData();
+                data.videoId = finalVideo.id();
+                data.title = finalVideo.title();
+                data.thumbnail = finalVideo.thumbnail();
+                PlayListFolderData top = Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle();
+                top.add(data);
+                top.save();
+                Log.d("save", finalVideo.id());
+            }
+        });
 
         return view;
     }

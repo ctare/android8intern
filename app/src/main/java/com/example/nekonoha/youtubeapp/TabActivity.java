@@ -65,6 +65,11 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
         initDB(this); // debug
+        if(Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle() == null){
+            PlayListFolderData playListFolderData = new PlayListFolderData();
+            playListFolderData.name = "play list";
+            playListFolderData.save();
+        }
 
         for (PlayListVideoData playListVideoData : Select.from(PlayListVideoData.class).fetch()) {
             Log.d("video id", String.format("%d, %d, %s", playListVideoData.id, playListVideoData.parent, playListVideoData.videoId));
@@ -184,13 +189,16 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onPageSelected(int position) {
+        if(position == 2) {
+            PlayListFolderData playList = Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle();
+            PlayList.viewPlayList(this, playList);
+        }
 
         for (int i = 0; i < 3; i++) {
             if (i == position) {
                 tab[i].setTextColor(getResources().getColor(R.color.colorFont, getTheme()));
             } else {
                 tab[i].setTextColor(defaultColors[i]);
-
             }
         }
 //        Toast.makeText(this, String.valueOf(position), Toast.LENGTH_SHORT).show();
