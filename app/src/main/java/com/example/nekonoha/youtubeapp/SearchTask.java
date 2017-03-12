@@ -4,7 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.NestedScrollView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -86,7 +91,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             topFragment.setArguments(args);
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.thumbnails, topFragment)
+                    .replace(R.id.top_wrap, topFragment)
                     .commit();
             oldResult = topFragment;
         } catch (Exception ex) {

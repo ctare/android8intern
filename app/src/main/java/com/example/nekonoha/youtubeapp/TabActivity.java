@@ -137,7 +137,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                     case 1:
 //                        Fragment topPage = SearchTask.oldResult();
 //                        return topPage == null ? new TopFragment() : topPage;
-                        return new TopFragment();
+
+//                        return new TopFragment();
+                        return new TopWrapFragment();
                     case 2:
 //                        PlayListFragment playListFragment = new PlayListFragment();
 //                        Bundle bundle = new Bundle();

@@ -119,7 +119,6 @@ public class TopFragment extends Fragment {
         scrollView = (NestedScrollView) getActivity().findViewById(R.id.scrollView);
         thumbnails = (LinearLayout) getActivity().findViewById(R.id.thumbnails);
 
-
         scrollView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
             @Override
             public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
@@ -131,6 +130,11 @@ public class TopFragment extends Fragment {
                 }
             }
         });
+        Log.d("height", String.valueOf(thumbnails.getHeight()));
+        Log.d("height", String.valueOf(scrollView.getHeight()));
+        if(thumbnails.getHeight() <= scrollView.getHeight()){
+            addNextPage(searchedVideoList.query, searchedVideoList.nextToken);
+        }
     }
 
     public void addNextPage(final String query, final String nextToken){
