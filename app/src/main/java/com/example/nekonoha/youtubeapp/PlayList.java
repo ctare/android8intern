@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
-import android.widget.TextView;
 
 import ollie.Model;
 import ollie.annotation.Column;
@@ -74,7 +72,7 @@ public abstract class PlayList extends Model {
     public void addItem(PlayList playList) {
     }
 
-    public PlayList getParent() {
+    public PlayListFolderData getParent() {
         return Select.from(PlayListFolderData.class).where(PlayListFolderData._ID + " == ?", this.parent).fetchSingle();
     }
 
@@ -82,7 +80,7 @@ public abstract class PlayList extends Model {
         this.parent = parent.save();
     }
 
-    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData, TextView textView) {
+    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData) {
         VideoList videos = playListFolderData.asVideoList();
         Bundle args = new Bundle();
         args.putSerializable("videos", videos);
@@ -94,9 +92,6 @@ public abstract class PlayList extends Model {
                 .beginTransaction()
                 .replace(R.id.play_list_wrap, playListFragment)
                 .commit();
-
-        Log.d("textview", playListFolderData.name);
-        Log.d("textview", textView == null ? "null" : textView.getText().toString());
 
         //textView.setText(playListFolderData.name);
     }
