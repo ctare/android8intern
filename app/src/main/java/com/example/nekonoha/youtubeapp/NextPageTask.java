@@ -20,12 +20,13 @@ import static com.example.nekonoha.youtubeapp.SearchFragment.InputStreamToString
  * Created by c0115114 on 2017/03/07.
  */
 
-public class SearchTask extends AsyncTask<String, Void, JSONObject> {
+public class NextPageTask extends AsyncTask<String, Void, JSONObject> {
     Fragment fragment;
     private static Fragment oldResult = null;
     final private String API_KEY = "AIzaSyAq9hSrzsG34S8nGPciwlOEh9DKIb4c7HU";
 
-    public SearchTask(Fragment fragment) {
+
+    public NextPageTask(Fragment fragment) {
         this.fragment = fragment;
     }
 
@@ -33,48 +34,15 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
     protected JSONObject doInBackground(String... params) {
         try {
             URL url = null;
-            String term = "";
-
-            for (String param : params) {
-                term += param + " ";
-            }
+            String nextPageToken = params[0];
 
             String query;
 
-            //並び替え
-            // TODO: 2017/03/11 ソートなんとかする
+            query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&part=id,snippet";
+            query += "&type=video";
+            query += "&" + nextPageToken;
 
-//            if (true) {
-//                //日付
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=date";
-//            } else if (true) {
-//                //評価
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=rating";
-//            } else if (true) {
-//                //関連度
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=relevance";
-//            } else if (true) {
-//                //タイトル
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=title";
-//            } else if (true) {
-//                //再生数
-//                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-//                query += "&order=viewCount";
-//            }
-
-            if (true) {
-                //関連度
-                query = "https://www.googleapis.com/youtube/v3/search?key=" + API_KEY + "&q=" + term + "&part=id,snippet";
-                query += "&order=relevance";
-            }
-
-            query += "&type=video&maxResults=12";
-
-            // TODO: 2017/03/12  maxResults="" 追加して
+            // TODO: 2017/03/12 &maxResult="" 追加して
 
             url = new URL(query);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -119,7 +87,7 @@ public class SearchTask extends AsyncTask<String, Void, JSONObject> {
             topFragment.setArguments(args);
             fragmentManager
                     .beginTransaction()
-                    .replace(R.id.thumbnails, topFragment)
+                    .add(R.id.thumbnails, topFragment)
                     .commit();
             oldResult = topFragment;
 
