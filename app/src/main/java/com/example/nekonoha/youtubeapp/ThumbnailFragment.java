@@ -26,7 +26,6 @@ public class ThumbnailFragment extends Fragment{
     View view;
     Video video;
     FrameLayout frame;
-    TextView p_title;
 
 
     @Override
@@ -59,8 +58,6 @@ public class ThumbnailFragment extends Fragment{
         task.execute(video.thumbnail());
 
         title.setText(video.title());
-
-        p_title = (TextView) view.findViewById(R.id.play_list_title);
 
         frame = (FrameLayout)view.findViewById(R.id.frame);
         frame.setOnClickListener(new View.OnClickListener() {
