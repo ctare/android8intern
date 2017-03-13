@@ -28,4 +28,16 @@ public class SettingsData extends PlayList{
     public String getSortType(){
         return this.sortType == null ? SettingsDataStatic.DEFAULT_SORT_TYPE : this.sortType;
     }
+
+    @Column("gyro")
+    public Integer gyro;
+    public Integer getGyro(){
+        return this.gyro == null ? SettingsDataStatic.DEFAULT_GYRO : this.gyro;
+    }
+
+    @Column("gyro_on")
+    public Integer gyroOn;
+    public Boolean getGyroOn(){
+        return (this.gyroOn == null ? SettingsDataStatic.DEFAULT_GYRO_ON : this.gyroOn) == 1;
+    }
 }

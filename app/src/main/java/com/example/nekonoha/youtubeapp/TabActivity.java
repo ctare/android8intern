@@ -73,7 +73,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 .setVersion(1)
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
-        initDB(this); // debug
+//        initDB(this); // debug
         if(Select.from(PlayListFolderData.class).where("name == ?", PlayListFolderData.TOP_NAME).fetchSingle() == null){
             PlayListFolderData playListFolderData = new PlayListFolderData();
             playListFolderData.name = PlayListFolderData.TOP_NAME;
