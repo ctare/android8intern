@@ -73,7 +73,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 .setVersion(1)
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
-        initDB(this); // debug
+//        initDB(this); // debug
         if(Select.from(PlayListFolderData.class).where("name == ?", PlayListFolderData.TOP_NAME).fetchSingle() == null){
             PlayListFolderData playListFolderData = new PlayListFolderData();
             playListFolderData.name = PlayListFolderData.TOP_NAME;
@@ -226,16 +226,18 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         private final int INTERVAL = 3;
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-            if(sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
+            SettingsData settingsData = SettingsDataStatic.getInstance();
+            if(settingsData.getGyroOn() && sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
                 float x = sensorEvent.values[0];
                 float y = sensorEvent.values[1];
                 float z = sensorEvent.values[2];
 
-                if(once && y > 2){
+                Integer gyro = settingsData.getGyro();
+                if(once && y > gyro){
                     loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
                     once = false;
                     count = 0;
-                } else if(once && y < -2){
+                } else if(once && y < -gyro){
                     int pos = loopViewPager.getCurrentItem() - 1;
                     loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
                     once = false;

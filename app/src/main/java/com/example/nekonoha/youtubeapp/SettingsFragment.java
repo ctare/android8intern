@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorListenerAdapter;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -123,10 +124,7 @@ public class SettingsFragment extends Fragment {
         gyro_sensitivity = (TextView) getActivity().findViewById(R.id.gyro_sensitivity_text);
 
         //初期値
-        final SettingsData gyro_settingsData = SettingsDataStatic.getInstance();
-        // TODO: 2017/03/13 下の2行をサーチのリミットからジャイロの感度に変えておく
-//        Integer gyro_now = gyro_settingsData.getSearchLimit();
-        Integer gyro_now = 0;
+        Integer gyro_now = settingsData.getGyro();
         gyro_sensitivity.setText(gyro_now.toString());
         gyro_sensitivity_seekBar.setProgress(gyro_now + 1);
 
@@ -134,7 +132,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //ドラッグしたとき
-                Integer result = progress + 1;
+                Integer result = progress + 2;
                 gyro_sensitivity.setText(result.toString());
             }
 
@@ -146,19 +144,22 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO: 2017/03/13 DB
-//                Integer result = gyro_sensitivity_seekBar.getProgress();
-//                gyro_settingsData.searchLimit = result;
-//                gyro_settingsData.save();
+                Integer result = gyro_sensitivity_seekBar.getProgress() + 2;
+                settingsData.gyro = result;
+                settingsData.save();
 
             }
         });
 
         gyro_switch = (Switch) getActivity().findViewById(R.id.gyro_switch);
+        Log.d("activ", settingsData.getGyroOn() == null ? "g null" : "g not null");
+        gyro_switch.setChecked(settingsData.getGyroOn());
         gyro_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO: 2017/03/13 スイッチ
+                settingsData.gyroOn = isChecked ? 1 : 0;
+                settingsData.save();
             }
         });
 

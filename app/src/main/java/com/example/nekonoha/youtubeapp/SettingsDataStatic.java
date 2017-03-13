@@ -26,6 +26,8 @@ public class SettingsDataStatic {
 
     public static Integer DEFAULT_SEARCH_LIMIT = 2;
     public static String DEFAULT_SORT_TYPE = "date";
+    public static Integer DEFAULT_GYRO = 3;
+    public static Integer DEFAULT_GYRO_ON = 1;
 
     public static SettingsData getInstance(){
         SettingsData settingsData = Select.from(SettingsData.class).fetchSingle();
