@@ -1,5 +1,6 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,6 +8,7 @@ import android.support.v4.view.LoopViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import java.io.BufferedReader;
@@ -50,6 +52,8 @@ public class SearchFragment extends Fragment{
 
 
     public void search(final String term){
+        ImageView im = (ImageView) this.getActivity().findViewById(R.id.s);
+        im.setVisibility(View.GONE);
         SearchTask task = new SearchTask(this);
         task.execute(term);
     }
