@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 
 import ollie.Model;
@@ -81,7 +82,11 @@ public abstract class PlayList extends Model {
         this.parent = parent.save();
     }
 
-    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData) {
+    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData){
+        viewPlayList(activity, playListFolderData, false);
+    }
+
+    public static void viewPlayList(FragmentActivity activity, PlayListFolderData playListFolderData, boolean addToBackTrace) {
         PlayListFolderData.select(playListFolderData);
         VideoList videos = playListFolderData.asVideoList();
         Bundle args = new Bundle();
@@ -90,10 +95,11 @@ public abstract class PlayList extends Model {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         Fragment playListFragment = new PlayListFragment();
         playListFragment.setArguments(args);
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.play_list_wrap, playListFragment)
-                .commit();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if(addToBackTrace){
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.replace(R.id.play_list_wrap, playListFragment).commit();
 
         //textView.setText(playListFolderData.name);
     }

@@ -1,7 +1,9 @@
 package com.example.nekonoha.youtubeapp;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -12,8 +14,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
+import java.util.List;
 
 import ollie.query.Select;
+import ollie.util.QueryUtils;
 
 
 public class DisplayFragment extends Fragment {
@@ -25,6 +29,7 @@ public class DisplayFragment extends Fragment {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,19 +67,28 @@ public class DisplayFragment extends Fragment {
         d_task.execute(video.id());
         Log.d("ids",video.id());
 
-        Button button = (Button) view.findViewById(R.id.like);
+        final Button button = (Button) view.findViewById(R.id.like);
         final Video finalVideo = video;
+        if(Select.from(PlayListVideoData.class).where("video_id == ?", finalVideo.id()).fetchSingle() != null){
+            button.setText("♡");
+        }
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PlayListVideoData data = new PlayListVideoData();
-                data.videoId = finalVideo.id();
-                data.title = finalVideo.title();
-                data.thumbnail = finalVideo.thumbnail();
                 PlayListFolderData top = PlayListFolderData.getSelected();
-                top.add(data);
-                top.save();
-                Log.d("save", finalVideo.id());
+                PlayListVideoData old = Select.from(PlayListVideoData.class).where("video_id == ?", finalVideo.id()).fetchSingle();
+                if(old != null){
+                    QueryUtils.execSQL("delete from video_data where video_id == ?", new String[]{finalVideo.id()});
+                    button.setText("♥");
+                } else {
+                    PlayListVideoData data = new PlayListVideoData();
+                    data.videoId = finalVideo.id();
+                    data.title = finalVideo.title();
+                    data.thumbnail = finalVideo.thumbnail();
+                    top.add(data);
+                    top.save();
+                    button.setText("♡");
+                }
             }
         });
 
