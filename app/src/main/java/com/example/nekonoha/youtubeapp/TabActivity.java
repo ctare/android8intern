@@ -224,7 +224,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     SensorEventListener accelerometer = new SensorEventListener() {
         private boolean once = true;
         private int count = 0;
-        private final int INTERVAL = 2;
+        private final int INTERVAL = 3;
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
             if(sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
