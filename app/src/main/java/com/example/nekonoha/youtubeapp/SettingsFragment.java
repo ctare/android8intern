@@ -124,15 +124,17 @@ public class SettingsFragment extends Fragment {
 
         //初期値
         final SettingsData gyro_settingsData = SettingsDataStatic.getInstance();
-        Integer gyro_now = gyro_settingsData.getSearchLimit();
+        // TODO: 2017/03/13 下の2行をサーチのリミットからジャイロの感度に変えておく
+//        Integer gyro_now = gyro_settingsData.getSearchLimit();
+        Integer gyro_now = 0;
         gyro_sensitivity.setText(gyro_now.toString());
-        gyro_sensitivity_seekBar.setProgress(gyro_now);
+        gyro_sensitivity_seekBar.setProgress(gyro_now + 1);
 
         gyro_sensitivity_seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //ドラッグしたとき
-                Integer result = progress;
+                Integer result = progress + 1;
                 gyro_sensitivity.setText(result.toString());
             }
 
