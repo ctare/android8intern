@@ -27,7 +27,7 @@ import ollie.query.Select;
 public class PlayListFolderData extends PlayList implements Serializable{
     public final static String IDENTIFICATION = "this is play list";
     private static PlayListFolderData selected = null;
-    public static String TOP_NAME = "top";
+    public static String TOP_NAME = "トップ";
     public static PlayListFolderData getSelected(){
         return selected == null ? Select.from(PlayListFolderData.class).where("name == ?", TOP_NAME).fetchSingle() : selected;
     }

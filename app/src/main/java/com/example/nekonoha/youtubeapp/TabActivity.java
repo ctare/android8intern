@@ -1,6 +1,7 @@
 package com.example.nekonoha.youtubeapp;
 
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -200,14 +201,16 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     public void onPageSelected(int position) {
         if(position == 2) {
             PlayListFolderData playList = PlayListFolderData.getSelected();
-            PlayList.viewPlayList(this, playList);
+            PlayList.viewPlayList(this, playList, true);
         }
 
         for (int i = 0; i < 3; i++) {
             if (i == position) {
                 tab[i].setTextColor(getResources().getColor(R.color.colorFont, getTheme()));
+                tab[i].setBackgroundColor(getResources().getColor(R.color.colorPrimaryShadow, getTheme()));
             } else {
                 tab[i].setTextColor(defaultColors[i]);
+                tab[i].setBackgroundColor(getResources().getColor(R.color.colorPrimary, getTheme()));
             }
         }
     }

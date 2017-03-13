@@ -25,7 +25,7 @@ public class SettingsDataStatic {
     }
 
     public static Integer DEFAULT_SEARCH_LIMIT = 2;
-    public static String DEFAULT_SORT_TYPE = "date";
+    public static String DEFAULT_SORT_TYPE = "relevance";
     public static Integer DEFAULT_GYRO = 3;
     public static Integer DEFAULT_GYRO_ON = 1;
 
