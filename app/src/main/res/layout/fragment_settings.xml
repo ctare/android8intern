@@ -24,7 +24,7 @@
                 android:text="検索設定"
                 android:textAlignment="center"
                 android:textAllCaps="false"
-                android:textColor="@android:color/background_light"
+                android:textColor="@color/colorFontLight"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -123,6 +123,81 @@
 
 
                 </Spinner>
+            </TableRow>
+
+        </TableLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/sensor_settings_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimaryDark"
+                android:text="センサー設定"
+                android:textColor="@color/colorFontLight"
+                android:textSize="24sp" />
+        </FrameLayout>
+
+        <TableLayout
+            android:id="@+id/sensor_settings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="ジャイロの感度"
+                        android:textColor="@color/colorFontDark" />
+
+                    <TextView
+                        android:id="@+id/gyro_sensitivity_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="default"
+                        android:textColor="@color/colorFontDark" />
+
+                </LinearLayout>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <SeekBar
+                    android:id="@+id/gyro_sensitivity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="10dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Switch
+                    android:id="@+id/gyro_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="ジャイロセンサー"
+                    android:textColor="@color/colorFontDark" />
             </TableRow>
 
         </TableLayout>
