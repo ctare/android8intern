@@ -74,9 +74,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                 .setLogLevel(Ollie.LogLevel.FULL)
                 .init();
         initDB(this); // debug
-        if(Select.from(PlayListFolderData.class).where("name == 'play list'").fetchSingle() == null){
+        if(Select.from(PlayListFolderData.class).where("name == ?", PlayListFolderData.TOP_NAME).fetchSingle() == null){
             PlayListFolderData playListFolderData = new PlayListFolderData();
-            playListFolderData.name = "play list";
+            playListFolderData.name = PlayListFolderData.TOP_NAME;
             playListFolderData.save();
         }
 
