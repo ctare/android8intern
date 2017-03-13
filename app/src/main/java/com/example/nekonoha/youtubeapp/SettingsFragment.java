@@ -90,6 +90,7 @@ public class SettingsFragment extends Fragment {
                 Integer result = (seekBar.getProgress() + 1) * 2;
                 settingsData.searchLimit = result;
                 settingsData.save();
+                TabActivity.changed = true;
 
             }
         });
@@ -110,6 +111,7 @@ public class SettingsFragment extends Fragment {
                 now_sort.setText(item);
                 settingsData.sortType = SettingsDataStatic.toEn.get(item);
                 settingsData.save();
+                TabActivity.changed = true;
             }
 
             @Override
@@ -147,6 +149,7 @@ public class SettingsFragment extends Fragment {
                 Integer result = gyro_sensitivity_seekBar.getProgress() + 2;
                 settingsData.gyro = result;
                 settingsData.save();
+                TabActivity.changed = true;
 
             }
         });
@@ -160,6 +163,7 @@ public class SettingsFragment extends Fragment {
                 // TODO: 2017/03/13 スイッチ
                 settingsData.gyroOn = isChecked ? 1 : 0;
                 settingsData.save();
+                TabActivity.changed = true;
             }
         });
 

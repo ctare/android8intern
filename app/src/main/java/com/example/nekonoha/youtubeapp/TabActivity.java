@@ -154,17 +154,8 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
                     case 0:
                         return new SettingsFragment();
                     case 1:
-//                        Fragment topPage = SearchTask.oldResult();
-//                        return topPage == null ? new TopFragment() : topPage;
-
-//                        return new TopFragment();
                         return new TopWrapFragment();
                     case 2:
-//                        PlayListFragment playListFragment = new PlayListFragment();
-//                        Bundle bundle = new Bundle();
-//                        PlayListFolderData playList = Select.from(PlayListFolderData.class).fetchSingle();
-//                        bundle.putSerializable("videos", playList.asVideoList());
-//                        playListFragment.setArguments(bundle);
                         return new PlayListWrapFragment();
                     default:
                         return PageFragment.newInstance(position + 1);
@@ -228,20 +219,26 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         private boolean once = true;
         private int count = 0;
         private final int INTERVAL = 3;
+        private int sensitivity;
+        private boolean on;
         @Override
         public void onSensorChanged(SensorEvent sensorEvent) {
-            SettingsData settingsData = SettingsDataStatic.getInstance();
-            if(settingsData.getGyroOn() && sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
+            if(changed){
+                SettingsData settingsData = SettingsDataStatic.getInstance();
+                on = settingsData.getGyroOn();
+                sensitivity = settingsData.getGyro();
+                changed = false;
+            }
+            if(on && sensorEvent.sensor.getType() == Sensor.TYPE_GYROSCOPE){
                 float x = sensorEvent.values[0];
                 float y = sensorEvent.values[1];
                 float z = sensorEvent.values[2];
 
-                Integer gyro = settingsData.getGyro();
-                if(once && y > gyro){
+                if(once && y > sensitivity){
                     loopViewPager.setCurrentItem((loopViewPager.getCurrentItem() + 1 ) %3, true);
                     once = false;
                     count = 0;
-                } else if(once && y < -gyro){
+                } else if(once && y < -sensitivity){
                     int pos = loopViewPager.getCurrentItem() - 1;
                     loopViewPager.setCurrentItem(pos == -1 ? 2 : pos, true);
                     once = false;
