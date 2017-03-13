@@ -132,7 +132,7 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 //ドラッグしたとき
-                Integer result = progress + 1;
+                Integer result = progress + 2;
                 gyro_sensitivity.setText(result.toString());
             }
 
@@ -144,8 +144,7 @@ public class SettingsFragment extends Fragment {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO: 2017/03/13 DB
-                Integer result = gyro_sensitivity_seekBar.getProgress();
+                Integer result = gyro_sensitivity_seekBar.getProgress() + 2;
                 settingsData.gyro = result;
                 settingsData.save();
 
