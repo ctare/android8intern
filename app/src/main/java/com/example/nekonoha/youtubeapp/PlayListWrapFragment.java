@@ -59,7 +59,7 @@ public class PlayListWrapFragment extends Fragment {
                             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                                 if(event.getAction() == KeyEvent.ACTION_DOWN && (keyCode == KeyEvent.KEYCODE_ENTER)) {
                                     PlayListWrapFragment.saveData(playList, editView.getText().toString());
-                                    PlayList.viewPlayList(getActivity(), playList);
+                                    PlayList.viewPlayList(getActivity(), playList, true);
                                     dialog.dismiss();
                                     return true;
                                 }
@@ -69,7 +69,7 @@ public class PlayListWrapFragment extends Fragment {
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 PlayListWrapFragment.saveData(playList, editView.getText().toString());
-                                PlayList.viewPlayList(getActivity(), playList);
+                                PlayList.viewPlayList(getActivity(), playList, true);
                             }
                         })
                         .setNegativeButton("キャンセル", new DialogInterface.OnClickListener() {
