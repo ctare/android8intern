@@ -39,7 +39,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
     final String[] pageTitle = {"Settings", "Search", "PlayList"};
 
     // --------------------------- debug
-    public static boolean flg = false;
+    public static boolean flg = true;
 
     public void deleteDB(AppCompatActivity a) {
         if (flg) {
