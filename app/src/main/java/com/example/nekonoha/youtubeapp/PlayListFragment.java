@@ -5,14 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
-
 import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-
-import ollie.query.Select;
 
 
 /**
@@ -79,7 +69,8 @@ public class PlayListFragment extends Fragment{
         }
         TextView textView = new TextView(getActivity());
         textView.setTextSize(24);
-        textView.setTextColor(getResources().getColor(R.color.colorFontDark, getActivity().getTheme()));
+        textView.setTextColor(getResources().getColor(R.color.colorFontLight, getActivity().getTheme()));
+
         if(data != null) {
             textView.setText(data.name);
         } else {
@@ -104,7 +95,7 @@ public class PlayListFragment extends Fragment{
         TextView textView = new TextView(getActivity());
         textView.setText(" > ");
         textView.setTextSize(24);
-        textView.setTextColor(getResources().getColor(R.color.colorFontDark, getActivity().getTheme()));
+        textView.setTextColor(getResources().getColor(R.color.colorFontLight, getActivity().getTheme()));
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.gravity = Gravity.CENTER;
         bread.addView(textView, 0, layoutParams);

@@ -52,7 +52,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="表示件数"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/results"
@@ -60,7 +61,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="results"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -96,7 +98,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="並び替え"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/now_sort"
@@ -104,7 +107,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="sorting"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
                 </LinearLayout>
 
             </TableRow>
@@ -162,7 +166,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="ジャイロの感度"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/gyro_sensitivity_text"
@@ -170,7 +175,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="default"
-                        android:textColor="@color/colorFontDark" />
+                        android:textColor="@color/colorFontDark"
+                        android:textSize="18sp" />
 
                 </LinearLayout>
             </TableRow>
@@ -198,7 +204,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="ジャイロセンサー"
-                    android:textColor="@color/colorFontDark" />
+                    android:textColor="@color/colorFontDark"
+                    android:textSize="18sp" />
             </TableRow>
 
         </TableLayout>
